@@ -19,7 +19,7 @@
 			
 			<div class="col-12 col-lg-6 p-2">
 				<div class="col-12">
-					الرابط
+					الرابط (slug)
 				</div>
 				<div class="col-12 pt-3">
 					<input type="text" name="slug" required  maxlength="190" class="form-control" value="{{old('slug')}}" >

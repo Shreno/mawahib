@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BackendArticleController extends Controller
@@ -39,8 +40,10 @@ class BackendArticleController extends Controller
     public function create()
     {
         $tags = Tag::get();
-        $categories= Category::orderBy('id','DESC')->get();
-        return view('admin.articles.create',compact('categories','tags'));
+        $categories = Category::orderBy('id', 'DESC')->get();
+        $creators = User::where('user_type', 'creator')->orderBy('id','DESC')->get();
+    
+        return view('admin.articles.create', compact('categories', 'tags', 'creators'));
     }
 
     /**
@@ -58,6 +61,7 @@ class BackendArticleController extends Controller
             'slug'=>"required|max:190|unique:articles,slug",
             'category_id'=>"required|array",
             'category_id.*'=>"required|exists:categories,id",
+            'creator_id'=>"required|exists:users,id",
             'is_featured'=>"required|in:0,1",
             'title'=>"required|max:190",
             'description'=>"nullable|max:100000",
@@ -65,6 +69,7 @@ class BackendArticleController extends Controller
         ]);
         $article = Article::create([
             'user_id'=>auth()->user()->id,
+            'creator_id'=>$request->creator_id,
             "slug"=>$request->slug,
             "is_featured"=>$request->is_featured==1?1:0,
             "title"=>$request->title,
@@ -103,7 +108,9 @@ class BackendArticleController extends Controller
     {
         $tags = Tag::get();
         $categories= Category::orderBy('id','DESC')->get();
-        return view('admin.articles.edit',compact('article','categories','tags'));
+        $creators = User::where('user_type', 'creator')->orderBy('id','DESC')->get();
+
+        return view('admin.articles.edit',compact('article','categories','tags','creators'));
     }
 
     /**
@@ -123,6 +130,8 @@ class BackendArticleController extends Controller
             'slug'=>"required|max:190|unique:articles,slug,".$article->id,
             'category_id'=>"required|array",
             'category_id.*'=>"required|exists:categories,id",
+            'creator_id'=>"required|exists:users,id",
+
             'is_featured'=>"required|in:0,1",
             'title'=>"required|max:190",
             'description'=>"nullable|max:100000",
@@ -130,6 +139,8 @@ class BackendArticleController extends Controller
         ]);
         $article->update([
             'user_id'=>auth()->user()->id,
+            'creator_id'=>$request->creator_id,
+
             "slug"=>$request->slug,
             "is_featured"=>$request->is_featured==1?1:0,
             "title"=>$request->title,

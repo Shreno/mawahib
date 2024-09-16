@@ -1,176 +1,49 @@
-<section class="wrapper bg-light">
-  <style type="text/css">
-    .swiper-navigation{
-      direction: ltr;
-    }
-  </style>
-  <div class="overflow-hidden">
-    <div class="container py-14 py-md-16">
-      <div class="row">
-        <div class="col-xl-7 col-xxl-6 mx-auto text-center">
-          <h2 class="display-4 text-center mt-2 mb-10">إليك أحدث مقالاتنا</h2>
-        </div>
-        <!--/column -->
+   <!-- Latest Topics Start -->
+   <div class="topics section section-padding">
+    <div class="container">
+      <!-- Section Title Start -->
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2 class="title">أحدث مواضيع الأعضاء</h2>
       </div>
+      <!-- Section Title End -->
 
-
-      <div class="col-12 row p-0">
-        
-      
-      <div class="col-12 col-lg-4 mb-4">
-            <article>
-              <div class="card shadow-lg">
-                <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="/assets/img/photos/7.jpg" alt="" /></a>
-                  <figcaption>
-                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-                  </figcaption>
-                </figure>
-                <div class="card-body p-6">
-                  <div class="post-header">
-                    <div class="post-category">
-                      <a href="#" class="hover" rel="category">ريادة الأعمال</a>
-                    </div>
-                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">هذا النص هو مثال لنص يمكن أن يستبدل</a></h2>
-                  </div>
-                  <div class="post-footer">
-                    <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"> <span>14 Apr 2022</span> <i class="fal fa-clock"></i> </li>
-                      <li class="post-comments"><a href="#">  4 <i class="fal fa-comment"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
+      <!-- Topics Wrapper Start -->
+      <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 max-mb-n30">
+        @php
+        $articles = \App\Models\Article::orderBy('id','DESC')->take(12)->get();
+        @endphp
+        @foreach($articles as $article)
+        <div class="col max-mb-30" data-aos="fade-up">
+          <div class="course-2">
+            <div class="thumbnail">
+              <a href="{{route('article.show',$article)}}" class="image"
+                ><img
+                  src="{{asset('storage'.$article->main_image())}}"
+                  alt="Course Image"
+              /></a>
+            </div>
+            <div class="info">
+              <img class="small-thum" src="{{asset('storage'.$article->creator->getUserAvatar())}}" alt="thum-img">
+              <h4 class="title">
+                <a href="{{route('article.show',$article)}}"
+                  >{{$article->title}}</a
+                >
+              </h4>
+              <span class="category">
+                @foreach($article->categories as $article_category)
+                @if($loop->index<3)
+                  <a href="{{route('category.show',$article_category)}}" class="hover" rel="category">{{$article_category->title}}</a>
+                @endif
+              @endforeach
+              </span>
+              <span class="date"> <i class="far fa-clock"></i>  {{\Carbon::parse($article->created_at)->diffForHumans()}} </i></span>
+            </div>
           </div>
-          <div class="col-12 col-lg-4 mb-4">
-            <article>
-              <div class="card shadow-lg">
-                <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="/assets/img/photos/7.jpg" alt="" /></a>
-                  <figcaption>
-                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-                  </figcaption>
-                </figure>
-                <div class="card-body p-6">
-                  <div class="post-header">
-                    <div class="post-category">
-                      <a href="#" class="hover" rel="category">ريادة الأعمال</a>
-                    </div>
-                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">هذا النص هو مثال لنص يمكن أن يستبدل</a></h2>
-                  </div>
-                  <div class="post-footer">
-                    <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"> <span>14 Apr 2022</span> <i class="fal fa-clock"></i> </li>
-                      <li class="post-comments"><a href="#">  4 <i class="fal fa-comment"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-12 col-lg-4 mb-4">
-            <article>
-              <div class="card shadow-lg">
-                <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="/assets/img/photos/7.jpg" alt="" /></a>
-                  <figcaption>
-                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-                  </figcaption>
-                </figure>
-                <div class="card-body p-6">
-                  <div class="post-header">
-                    <div class="post-category">
-                      <a href="#" class="hover" rel="category">ريادة الأعمال</a>
-                    </div>
-                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">هذا النص هو مثال لنص يمكن أن يستبدل</a></h2>
-                  </div>
-                  <div class="post-footer">
-                    <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"> <span>14 Apr 2022</span> <i class="fal fa-clock"></i> </li>
-                      <li class="post-comments"><a href="#">  4 <i class="fal fa-comment"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-12 col-lg-4 mb-4">
-            <article>
-              <div class="card shadow-lg">
-                <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="/assets/img/photos/7.jpg" alt="" /></a>
-                  <figcaption>
-                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-                  </figcaption>
-                </figure>
-                <div class="card-body p-6">
-                  <div class="post-header">
-                    <div class="post-category">
-                      <a href="#" class="hover" rel="category">ريادة الأعمال</a>
-                    </div>
-                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">هذا النص هو مثال لنص يمكن أن يستبدل</a></h2>
-                  </div>
-                  <div class="post-footer">
-                    <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"> <span>14 Apr 2022</span> <i class="fal fa-clock"></i> </li>
-                      <li class="post-comments"><a href="#">  4 <i class="fal fa-comment"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-12 col-lg-4 mb-4">
-            <article>
-              <div class="card shadow-lg">
-                <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="/assets/img/photos/7.jpg" alt="" /></a>
-                  <figcaption>
-                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-                  </figcaption>
-                </figure>
-                <div class="card-body p-6">
-                  <div class="post-header">
-                    <div class="post-category">
-                      <a href="#" class="hover" rel="category">ريادة الأعمال</a>
-                    </div>
-                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">هذا النص هو مثال لنص يمكن أن يستبدل</a></h2>
-                  </div>
-                  <div class="post-footer">
-                    <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"> <span>14 Apr 2022</span> <i class="fal fa-clock"></i> </li>
-                      <li class="post-comments"><a href="#">  4 <i class="fal fa-comment"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="col-12 col-lg-4 mb-4">
-            <article>
-              <div class="card shadow-lg">
-                <figure class="card-img-top overlay overlay-1"><a href="#"> <img src="/assets/img/photos/7.jpg" alt="" /></a>
-                  <figcaption>
-                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-                  </figcaption>
-                </figure>
-                <div class="card-body p-6">
-                  <div class="post-header">
-                    <div class="post-category">
-                      <a href="#" class="hover" rel="category">ريادة الأعمال</a>
-                    </div>
-                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">هذا النص هو مثال لنص يمكن أن يستبدل</a></h2>
-                  </div>
-                  <div class="post-footer">
-                    <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"> <span>14 Apr 2022</span> <i class="fal fa-clock"></i> </li>
-                      <li class="post-comments"><a href="#">  4 <i class="fal fa-comment"></i> </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-    
-
-          </div>
-
         </div>
-      </div>
-    </section>
+        @endforeach
+       
+     
+    </div>
+  </div>
+  </div>
+  <!-- Latest Topics End -->

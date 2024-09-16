@@ -13,7 +13,7 @@
 	<div class="col-12 col-lg-12 p-0 ">
 	 
 		
-		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.users.update',$user)}}">
+		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.creators.update',$user->id)}}">
 		@csrf
 		@method("PUT")
 		<div class="col-12 col-lg-8 p-0 main-box">
@@ -59,7 +59,7 @@
 					<input type="file" name="avatar"  class="filepond"  accept="image/*" >
 				</div>
 				<div class="col-12 p-0">
-					<img src="{{$user->getUserAvatar()}}" style="width:100px;margin-top:20px">
+					<img src="{{asset('storage/'.$user->getUserAvatar())}}" style="width:100px;margin-top:20px">
 				</div>
 			</div>
 
@@ -71,7 +71,57 @@
 					<input type="text" name="phone"   maxlength="190" class="form-control"  value="{{$user->phone}}" >
 				</div>
 			</div>
-			@if(auth()->user()->can('user-roles-update'))
+			{{--  --}}
+				{{-- creators data --}}
+				<div class="col-12 col-lg-6 p-2">
+					<div class="col-12">
+						عدد المتابعين الإجمالي في كل المنصات *</div>
+						<div class="col-12 pt-3">
+	
+					<input type="number" name="followers" id="followers" class="form-control" value="{{ $user->followers }}" required>
+						</div>
+				</div>
+		
+				<div class="col-12 col-lg-6 p-2">
+					<div class="col-12">
+						رابط حسابك على أكبر منصة لديك متابعين بها *</div>
+					<div class="col-12 pt-3">
+	
+					<input type="url" name="platform_link" id="platform_link" class="form-control" value="{{ $user->platform_link }}" required>
+					</div>
+				</div>
+		
+				<div class="col-12 col-lg-6 p-2">
+					<div class="col-12">
+						رابط قناتك على يوتيوب (اختياري)</div>
+					<div class="col-12 pt-3">
+	
+					<input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{ $user->youtube_link }}">
+					</div>
+				</div>
+		
+				<div class="col-12 col-lg-6 p-2">
+					<div class="col-12">
+						رابط حسابك على فيسبوك (اختياري)</div>
+					<div class="col-12 pt-3">
+	
+					<input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{ $user->facebook_link}}">
+					</div>
+				</div>
+		
+				<div class="col-12 col-lg-6 p-2">
+					<div class="col-12">
+						رابط حسابك على تيك توك (اختياري)</div>
+					<div class="col-12 pt-3">
+	
+					<input type="url" name="tiktok_link" id="tiktok_link" class="form-control" value="{{ $user->tiktok_link }}">
+					</div>
+				</div>
+
+
+
+			{{--  --}}
+			{{-- @if(auth()->user()->can('user-roles-update'))
 			<div class="col-12 col-lg-6 p-2">
 				<div class="col-12">
 					الصلاحية
@@ -84,7 +134,7 @@
 					</select>
 				</div>
 			</div>
-			@endif
+			@endif --}}
 			<div class="col-12 col-lg-6 p-2">
 				<div class="col-12">
 					نبذة

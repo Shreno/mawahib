@@ -185,7 +185,7 @@
         <div class="col-12 px-0 pb-4 text-center justify-content-center align-items-center ">
             <a href="{{route('admin.profile.edit')}}">
 
-            <img src="{{auth()->user()->getUserAvatar()}}" style="width: 80px;height: 80px;color: var(--background-1);border-radius: 50%" class="d-inline-block">
+            <img src="{{asset('storage/'.auth()->user()->getUserAvatar())}}" style="width: 80px;height: 80px;color: var(--background-1);border-radius: 50%" class="d-inline-block">
                 </a>
                 <div class="col-12 px-0 mt-2 text-center" style="color: #232323;">
                     مرحباً {{auth()->user()->name}}
@@ -414,7 +414,7 @@
                     </div>
                     <div class="col-12 px-0 d-flex justify-content-center align-items-center  dropdown"  style="width: 55px;height: 55px;" >
                         <div style="width: 55px;height: 55px;cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false" class="d-flex justify-content-center align-items-center cursor-pointer">
-                            <img src="{{auth()->user()->getUserAvatar()}}" style="padding: 10px;border-radius: 50%;width: 55px;height: 55px;">
+                            <img src="{{asset('storage/'.auth()->user()->getUserAvatar())}}" style="padding: 10px;border-radius: 50%;width: 55px;height: 55px;">
                         </div>
                         <ul class="dropdown-menu shadow border-0" aria-labelledby="dropdownMenuButton1" style="top: -3px;">
                                 <li><a class="dropdown-item font-1" href="/" target="_blank"><span class="fal fa-desktop font-1"></span> عرض الموقع</a></li>

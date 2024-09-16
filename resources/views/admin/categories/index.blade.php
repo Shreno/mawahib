@@ -48,7 +48,7 @@
 					<tr>
 						<td>{{$category->id}}</td>
 
-						<td><img src="{{$category->image()}}" style="width:40px"></td>
+						<td><img src="{{asset('storage/'.$category->image())}}" style="width:40px"></td>
 						<td>{{$category->title}}</td>
 					 	<td><a href="{{route('admin.articles.index',['category_id'=>$category->id])}}">{{$category->articles_count}}</a></td>
 

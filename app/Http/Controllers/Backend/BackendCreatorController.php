@@ -28,7 +28,7 @@ class BackendCreatorController extends Controller
                 $q->where('id',$request->id);
             if($request->q!=null)
                 $q->where('name','LIKE','%'.$request->q.'%')->orWhere('phone','LIKE','%'.$request->q.'%')->orWhere('email','LIKE','%'.$request->q.'%');
-        })->withCount(['logs','articles','contacts','comments'])->with(['roles'])->orderBy('last_activity','DESC')->orderBy('id','DESC')->paginate();
+        })->withCount(['logs','articles_creator','contacts','comments'])->with(['roles'])->orderBy('last_activity','DESC')->orderBy('id','DESC')->paginate();
 
         return view('admin.creators.index',compact('users'));
         
@@ -41,8 +41,7 @@ class BackendCreatorController extends Controller
      */
     public function create()
     {
-        $roles = Role::get();
-        return view('admin.users.create',compact('roles'));
+        return view('admin.creators.create');
     }
 
     /**
@@ -59,7 +58,12 @@ class BackendCreatorController extends Controller
             'bio'=>"nullable|max:5000",
             'blocked'=>"required|in:0,1",
             'email'=>"required|unique:users,email",
-            'password'=>"required|min:8|max:190"
+            'password'=>"required|min:8|max:190",
+            'followers' => 'required|integer',
+            'platform_link' => 'required|url',
+            'youtube_link' => 'nullable|url',
+            'facebook_link' => 'nullable|url',
+            'tiktok_link' => 'nullable|url',
         ]);
         $user = User::create([
             "name"=>$request->name,
@@ -68,22 +72,29 @@ class BackendCreatorController extends Controller
             "blocked"=>$request->blocked,
             "email"=>$request->email,
             "password"=>\Hash::make($request->password),
+            'user_type'=>'creator',
+            "followers"=>$request->followers,
+            "platform_link"=>$request->platform_link,
+            "facebook_link"=>$request->facebook_link,
+            "tiktok_link"=>$request->tiktok_link,
+            "youtube_link"=>$request->youtube_link,
+
         ]);
-        if(auth()->user()->can('user-roles-update')){
-            $request->validate([
-                'roles'=>"required|array",
-                'roles.*'=>"required|exists:roles,id",
-            ]);
-            $user->syncRoles(array_map('intval',$request->roles));
-        }
+        // if(auth()->user()->can('user-roles-update')){
+        //     $request->validate([
+        //         'roles'=>"required|array",
+        //         'roles.*'=>"required|exists:roles,id",
+        //     ]);
+        //     $user->syncRoles(array_map('intval',$request->roles));
+        // }
 
         if($request->hasFile('avatar')){
             $avatar = $user->addMedia($request->avatar)->toMediaCollection('avatar');
             $user->update(['avatar'=>$avatar->id.'/'.$avatar->file_name]);
         }
 
-        toastr()->success('تم إضافة المستخدم بنجاح','عملية ناجحة');
-        return redirect()->route('admin.users.index');
+        toastr()->success('تم إضافة صاحب محتوى بنجاح','عملية ناجحة');
+        return redirect()->route('admin.creators.index');
             
         
     }
@@ -94,9 +105,11 @@ class BackendCreatorController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return view('admin.users.show',compact('user'));
+        $user=User::findOrFail($id);
+
+        return view('admin.creators.show',compact('user'));
     }
 
     /**
@@ -105,10 +118,12 @@ class BackendCreatorController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        $roles = Role::get();
-        return view('admin.users.edit',compact('user','roles'));
+        $user=User::find($id);
+
+        // $roles = Role::get();
+        return view('admin.creators.edit',compact('user'));
     }
 
     /**
@@ -118,15 +133,21 @@ class BackendCreatorController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request,$id)
     {
+        $user=User::findOrFail($id);
         $request->validate([
             'name'=>"nullable|max:190",
             'phone'=>"nullable|max:190",
             'bio'=>"nullable|max:5000",
             'blocked'=>"required|in:0,1",
             'email'=>"required|unique:users,email,".$user->id,
-            'password'=>"nullable|min:8|max:190"
+            'password'=>"nullable|min:8|max:190",
+            'followers' => 'required|integer',
+            'platform_link' => 'required|url',
+            'youtube_link' => 'nullable|url',
+            'facebook_link' => 'nullable|url',
+            'tiktok_link' => 'nullable|url',
         ]);
         $user->update([
             "name"=>$request->name,
@@ -134,15 +155,20 @@ class BackendCreatorController extends Controller
             "bio"=>$request->bio,
             "blocked"=>$request->blocked,
             "email"=>$request->email,
+            "followers"=>$request->followers,
+            "platform_link"=>$request->platform_link,
+            "facebook_link"=>$request->facebook_link,
+            "tiktok_link"=>$request->tiktok_link,
+            "youtube_link"=>$request->youtube_link,
             
         ]);
-        if(auth()->user()->can('user-roles-update')){
-            $request->validate([
-                'roles'=>"required|array",
-                'roles.*'=>"required|exists:roles,id",
-            ]);
-            $user->syncRoles($request->roles);
-        }
+        // if(auth()->user()->can('user-roles-update')){
+        //     $request->validate([
+        //         'roles'=>"required|array",
+        //         'roles.*'=>"required|exists:roles,id",
+        //     ]);
+        //     $user->syncRoles($request->roles);
+        // }
 
         if($request->password!=null){
             $user->update([
@@ -154,8 +180,8 @@ class BackendCreatorController extends Controller
             $user->update(['avatar'=>$avatar->id.'/'.$avatar->file_name]);
         }
 
-        toastr()->success('تم تحديث المستخدم بنجاح','عملية ناجحة');
-        return redirect()->route('admin.users.index');
+        toastr()->success('تم تحديث صاحب المحتوى بنجاح','عملية ناجحة');
+        return redirect()->route('admin.creators.index');
     }
 
     /**
@@ -164,12 +190,14 @@ class BackendCreatorController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         if(!auth()->user()->can('users-delete'))abort(403);
+        $user=User::findOrFail($id);
+
         $user->delete();
-        toastr()->success('تم حذف المستخدم بنجاح','عملية ناجحة');
-        return redirect()->route('admin.users.index');
+        toastr()->success('تم حذف صاحب المحتوى بنجاح','عملية ناجحة');
+        return redirect()->route('admin.creators.index');
     }
 
     public function access(Request $request,User $user){

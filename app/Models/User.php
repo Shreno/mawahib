@@ -78,6 +78,10 @@ class User extends Authenticatable implements HasMedia
     public function articles(){
         return $this->hasMany(\App\Models\Article::class);
     }
+    public function articles_creator(){
+        return $this->hasMany(\App\Models\Article::class,'creator_id');
+    }
+
     public function comments(){
         return $this->hasMany(\App\Models\ArticleComment::class);
     }

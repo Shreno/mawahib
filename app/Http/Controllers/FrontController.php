@@ -10,13 +10,24 @@ use App\Models\ArticleComment;
 use App\Models\Page;
 use App\Models\Category;
 
-
 class FrontController extends Controller
 {
     
     public function index(Request $request)
     {
         return view('front.index');
+    }
+    public function creator()
+    {
+
+    }
+
+    public function articles(request $request){
+        $articles = Article::with(['categories','tags'])->withCount(['comments'=>function($q){$q->where('reviewed',1);}])
+        ->orderBy('id','DESC')->paginate(50);
+        $articlesCount=Article::all()->count();
+        return view('front.pages.articles',compact('articles','articlesCount'));
+        
     }
     
     public function comment_post(Request $request)

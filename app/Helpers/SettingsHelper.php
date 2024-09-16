@@ -10,6 +10,7 @@ class SettingsHelper {
     public function getAllSettings(){
         $settings = \App\Models\Setting::get();
 
+
         foreach($settings as $setting){
             if(is_object(json_decode($setting->value))){
                 $this->settings[$setting->key] =  json_decode($setting->value,true);
@@ -17,10 +18,12 @@ class SettingsHelper {
             $this->settings[$setting->key] = $setting->value;
         }
 
+
         $this->settings["get_website_logo"] = $this->website_logo();
         $this->settings["get_website_cover"] = $this->website_cover();
         $this->settings["get_website_wide_logo"] = $this->website_wide_logo();
         $this->settings["get_website_icon"] = $this->website_icon();
+
         
         return $this->settings;
     }

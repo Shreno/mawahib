@@ -26,6 +26,10 @@ class Article extends Model implements HasMedia
     public function user(){
         return $this->belongsTo(\App\Models\User::class);
     }
+
+    public function creator(){
+        return $this->belongsTo(\App\Models\User::class,'creator_id');
+    }
     public function categories(){
         return $this->belongsToMany(\App\Models\Category::class,'article_categories');
     }

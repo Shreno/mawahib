@@ -1,13 +1,20 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html class="no-js" dir="rtl" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{{$settings['website_name']}}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="csrf-token" content="{{ csrf_token() }}">  
+
     @include('seo.index')
     
     
-
 
     {!!$settings['header_code']!!}
     @livewireStyles
@@ -19,45 +26,45 @@
         $unreadNotifications=auth()->user()->unreadNotifications()->count();
         @endphp
     @endif
-    @vite('resources/css/app.css')
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-    <style type="text/css">
-        body {
-            --bg-main: #fff;
-            --bg-second: #f4f4f4;
-            --font-1: #333333;
-            --font-2: #555555;
-            --border-color: #dddddd;
-            --main-color: #0194fe;
-            --main-color-rgb: 1,148,254;
-            --main-color-flexable: #0194fe;
-            --scroll-bar-color: #d1d1d1;
-        }
-        body.night {
-            --bg-main: #1c222b;
-            --bg-second: #131923;
-            --font-1: #fff;
-            --font-2: #e3e3e3;
-            --border-color: #33343b;
-            --main-color: #0194fe;
-            --main-color-rgb: 1,148,254;
-            --main-color-flexable: #15202b;
-            --scroll-bar-color: #505050;
-        }
-        
-    </style>
+    {{-- @vite('resources/css/app.css') --}}
+ <!-- Favicon -->
+ <link
+ rel="shortcut icon"
+ type="image/x-icon"
+ href="assets/images/favicon.png"
+/>
+
+<!-- CSS
+============================================ -->
+
+<!-- Vendor CSS (Bootstrap & Icon Font) -->
+<link rel="stylesheet" href="{{asset('front/assets/css/vendor/bootstrap.min.css')}}" />
+<link rel="stylesheet" href="{{asset('front/assets/css/vendor/font-awesome.min.css')}}" />
+
+<!-- Plugins CSS (All Plugins Files) -->
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/aos.min.css')}}" />
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/animate.css')}}" />
+<link
+ rel="stylesheet"
+ href="{{asset('front/assets/css/plugins/jquery.animatedheadline.css')}}"
+/>
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/justifiedGallery.min.css')}}" />
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/swiper.min.css')}}" />
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/nice-select.css')}}" />
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/ion.rangeSlider.min.css')}}" />
+<link rel="stylesheet" href="{{asset('front/assets/css/plugins/magnific-popup.css')}}" />
+
+<!-- Main Style CSS -->
+<link rel="stylesheet" href="{{asset('front/assets/css/style.css')}}" />   
     @yield('styles')
 </head>
-<body style="background:#eef4f5;margin-top: 65px;" class="body">
-    <style type="text/css">
-        #toast-container>div {
-            opacity: 1;
-        }
-    </style>
+<body >
+    
     @yield('after-body')
     <div id="app">
+
         {{-- <div class="page-loader"></div> --}}
-        <div id="body-overlay"onclick="document.getElementById('aside-menu').classList.toggle('active');document.getElementById('body-overlay').classList.toggle('active');"></div>
+        {{-- <div id="body-overlay"onclick="document.getElementById('aside-menu').classList.toggle('active');document.getElementById('body-overlay').classList.toggle('active');"></div> --}}
         <x-navbar />
         <main class="p-0 font-2">
             @yield('content')
@@ -66,7 +73,45 @@
     </div>
 
 
+
+
+
     @vite('resources/js/app.js')
+     <!-- Vendors JS -->
+     <script src="{{asset('front/assets/js/vendor/modernizr-3.6.0.min.js')}}')}}"></script>
+     <script src="{{asset('front/assets/js/vendor/jquery-3.6.0.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/vendor/bootstrap.bundle.min.js')}}"></script>
+ 
+     <!-- Plugins JS -->
+     <script src="{{asset('front/assets/js/plugins/aos.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/countdown.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.ajaxchimp.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/ion.rangeSlider.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/imagesloaded.pkgd.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/isotope.pkgd.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/parallax.min.js')}}"></script>
+     <script src="{{asset('front//js/plugins/Jarallax.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/masonry.pkgd.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.justifiedGallery.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/rellax.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/waypoints.min.js')}}')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.ajaxchimp.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.animatedheadline.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.counterup.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.magnific-popup.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/jquery.selectric.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/sticky-sidebar.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/svg-inject.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/swiper.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/vivus.min.js')}}"></script>
+ 
+     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
+     <!-- <script src="assets/js/vendor/vendor.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/plugins.min.js')}}"></script> -->
+ 
+     <!-- Main Activation JS -->
+     <script src="{{asset('front/assets/js/main.js')}}"></script>
     @livewireScripts
     @include('layouts.scripts')
     @auth

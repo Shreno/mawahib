@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
 
         try{
             $settings = (new \App\Helpers\SettingsHelper)->getAllSettings();
+
             View::share('settings', $settings);
         }catch(\Exception $e){/*\Artisan::call("db:seed");*/}
 

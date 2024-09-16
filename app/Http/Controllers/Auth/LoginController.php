@@ -70,8 +70,14 @@ class LoginController extends Controller
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
+            if (auth()->user()->user_type == 'admin') {
+                return redirect('/admin'); // إعادة التوجيه إلى صفحة المسؤول
+            } elseif (auth()->user()->user_type == 'creator') {
+                return redirect('/dashboard'); // إعادة التوجيه إلى صفحة المبدع
+            } else {
+                return $this->sendLoginResponse($request); // إعادة التوجيه الافتراضي (منزل)
+            }
 
-            return $this->sendLoginResponse($request);
         }
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
@@ -106,7 +112,17 @@ class LoginController extends Controller
 
         if(null!==$is_registered){
             auth()->loginUsingId($is_registered['id'], true);
-            return redirect('/dashboard');
+            if(auth()->user()->user_type=='admin')
+            {
+                return redirect('/admin');
+
+            }
+
+            elseif(auth()->user()->user_type=='creator')
+            {
+                return redirect('/dashboard');
+
+            }
         }
         else
         {

@@ -18,7 +18,7 @@
 				</div>
 				<div class="col-12 col-lg-4 p-2 text-lg-end">
 					@can('users-create')
-					<a href="{{route('admin.users.create')}}">
+					<a href="{{route('admin.creators.create')}}">
 					<span class="btn btn-primary"><span class="fas fa-plus"></span> إضافة جديد</span>
 					</a>
 					@endcan
@@ -52,9 +52,9 @@
 						@if(auth()->user()->can('comments-read'))
 						<th>التعليقات</th>
 						@endif
-						{{-- @if(auth()->user()->can('traffics-read'))
+						@if(auth()->user()->can('traffics-read'))
 						<th>الترافيك</th>
-						@endif --}}
+						@endif
 						<th>تحكم</th>
 					</tr>
 				</thead>
@@ -67,22 +67,22 @@
 						<td>{{$user->email}}</td>
 
 						@if(auth()->user()->can('articles-read'))
-						<td><a href="{{route('admin.articles.index',['user_id'=>$user->id])}}">{{$user->articles_count}}</a></td>
+						<td><a href="{{route('admin.articles.index',['user_id'=>$user->id])}}">{{$user->articles_creator_count}}</a></td>
 						@endif
 						
 						@if(auth()->user()->can('comments-read'))
 						<td><a href="{{route('admin.article-comments.index',['user_id'=>$user->id])}}">{{$user->comments_count}}</a></td>
 						@endif
-						{{-- @if(auth()->user()->can('traffics-read'))
+						@if(auth()->user()->can('traffics-read'))
 						<td><a href="{{route('admin.traffics.logs',['user_id'=>$user->id])}}">{{$user->logs_count}}</a></td>
-						@endif --}}
+						@endif
 
 
 						 
 
 						<td>
 							@can('users-read')
-							<a href="{{route('admin.users.show',$user)}}">
+							<a href="{{route('admin.creators.show',$user->id)}}">
 							<span class="btn  btn-outline-primary btn-sm font-small mx-1">
 								<span class="fas fa-search "></span> عرض
 							</span>
@@ -105,16 +105,16 @@
 							</a> 
 							@endcan
 
-							@can('user-roles-update')
+							{{-- @can('user-roles-update')
 							<a href="{{route('admin.users.roles.index',$user)}}">
 							<span class="btn btn-outline-primary btn-sm font-small mx-1">
 								<span class="fal fa-key "></span> الصلاحيات
 							</span>
 							</a>
-							@endcan
+							@endcan --}}
 							
 							@can('users-update')
-							<a href="{{route('admin.users.edit',$user)}}">
+							<a href="{{route('admin.creators.edit',$user->id)}}">
 							<span class="btn  btn-outline-success btn-sm font-small mx-1">
 								<span class="fas fa-wrench "></span> تحكم
 							</span>
@@ -123,7 +123,7 @@
 							
 						 						 
 							@can('users-delete')
-							<form method="POST" action="{{route('admin.users.destroy',$user)}}" class="d-inline-block">@csrf @method("DELETE")
+							<form method="POST" action="{{route('admin.creators.destroy',$user->id)}}" class="d-inline-block">@csrf @method("DELETE")
 								<button class="btn  btn-outline-danger btn-sm font-small mx-1" onclick="var result = confirm('هل أنت متأكد من عملية الحذف ؟');if(result){}else{event.preventDefault()}">
 									<span class="fas fa-trash "></span> حذف
 								</button>
@@ -137,9 +137,9 @@
 								<span class="fas fa-bars"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 29px, 0px);">
-								@can('users-update')
+								{{-- @can('users-update')
 								<li><a class="dropdown-item font-1" href="{{route('admin.users.access',$user)}}"><span class="fal fa-eye"></span> دخول</a></li>
-								@endcan
+								@endcan --}}
 
  
 

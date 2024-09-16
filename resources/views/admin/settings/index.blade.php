@@ -90,7 +90,7 @@
 		 			<div class="col-12 col-lg-9 px-2">
 		 				<input type="file" name="settings[website_logo]" class="filepond" >
 		 				<div class="col-12 p-2">
-		 					<img src="{{$settings['get_website_logo']}}" style="width:100px;max-height: 100px;">
+		 					<img src="{{asset('storage/'.$settings['get_website_logo'])}}" style="width:100px;max-height: 100px;">
 		 				</div>
 		 			</div> 
 		 		</div>
@@ -101,7 +101,7 @@
 		 			<div class="col-12 col-lg-9 px-2">
 		 				<input type="file" name="settings[website_wide_logo]" class="filepond" >
 		 				<div class="col-12 p-2">
-		 					<img src="{{$settings['get_website_wide_logo']}}" style="width:100px;max-height: 100px;">
+		 					<img src="{{asset('storage/'.$settings['get_website_wide_logo'])}}" style="width:100px;max-height: 100px;">
 		 				</div>
 		 			</div> 
 		 		</div>
@@ -112,7 +112,7 @@
 		 			<div class="col-12 col-lg-9 px-2">
 		 				<input type="file" name="settings[website_icon]" class="filepond" >
 		 				<div class="col-12 p-2">
-		 					<img src="{{$settings['get_website_icon']}}" style="width:100px;max-height: 100px;">
+		 					<img src="{{asset('storage/'.$settings['get_website_icon'])}}" style="width:100px;max-height: 100px;">
 		 				</div>
 		 			</div> 
 		 		</div>
@@ -128,7 +128,7 @@
 		 			<div class="col-12 col-lg-9 px-2">
 		 				<input type="file" name="settings[website_cover]" class="filepond" >
 		 				<div class="col-12 p-2">
-		 					<img src="{{$settings['get_website_cover']}}" style="width:100px;max-height: 100px;">
+		 					<img src="{{asset('storage/'.$settings['get_website_cover'])}}" style="width:100px;max-height: 100px;">
 		 				</div>
 		 			</div> 
 		 		</div>

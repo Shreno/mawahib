@@ -35,7 +35,8 @@ use App\Http\Controllers\Backend\BackendCreatorController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\JoinController;
 
-use App\Http\Controllers\FrontendProfileController;
+use App\Http\Controllers\Creator\FrontendProfileController;
+use App\Http\Controllers\Creator\FrontendArticalController;
 
 Auth::routes();
 
@@ -44,14 +45,25 @@ Auth::routes();
 
 
 Route::get('/', [FrontController::class,'index'])->name('home');
+
+
 Route::get('/index2', function(){return view('front.index2');})->name('index2');
 Route::get('/join', [JoinController::class, 'showForm'])->name('join.form');
+
 Route::post('/join', [JoinController::class, 'submitForm'])->name('join.submit');
 
+Route::get('/creators', [JoinController::class, 'creator'])->name('creators');
+Route::get('/articles', [FrontController::class, 'articles'])->name('articles');
 
 
-Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified'])->name('user.')->group(function () {
+
+
+
+Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified','IsCreator'])->name('user.')->group(function () {
     Route::get('/', [FrontendProfileController::class,'dashboard'])->name('dashboard');
+    Route::resource('articles',FrontendArticalController::class);
+
+
     Route::get('/support', [FrontendProfileController::class,'support'])->name('support');
     Route::get('/support/create-ticket', [FrontendProfileController::class,'create_ticket'])->name('create-ticket');
     Route::post('/support/create-ticket', [FrontendProfileController::class,'store_ticket'])->name('store-ticket');
@@ -70,7 +82,7 @@ Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified'])->nam
 
 #Route::get('/test',[BackendTestController::class,'test']);
 
-Route::prefix('admin')->middleware(['auth','ActiveAccount'])->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth','ActiveAccount','IsAdmin'])->name('admin.')->group(function () {
 
     Route::get('/',[BackendAdminController::class,'index'])->name('index');
     Route::middleware('auth')->group(function () {
