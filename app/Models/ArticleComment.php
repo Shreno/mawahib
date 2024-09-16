@@ -13,6 +13,6 @@ class ArticleComment extends Model
         return $this->belongsTo(\App\Models\User::class,'user_id');
     }
     public function article(){
-        return $this->belongsTo(\App\Models\Article::class,'user_id');
+        return $this->belongsTo(\App\Models\Article::class);
     }
 }

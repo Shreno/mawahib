@@ -23,8 +23,25 @@ class FrontController extends Controller
     }
 
     public function articles(request $request){
-        $articles = Article::with(['categories','tags'])->withCount(['comments'=>function($q){$q->where('reviewed',1);}])
-        ->orderBy('id','DESC')->paginate(50);
+
+        $sort = $request->get('sort', 'latest'); // Default sort is 'latest'
+
+        // Modify the query based on the sorting option
+        $articles = Article::with('categories', 'creator')->withCount('comments') // Count the comments
+
+        ->when($sort == 'popularity', function($query) {
+            $query->orderBy('views', 'desc');
+        })
+        ->when($sort == 'comment', function($query) {
+            $query->orderBy('comments_count', 'desc');
+        })
+        ->when($sort == 'oldest', function($query) {
+            $query->orderBy('created_at', 'asc');
+        }, function($query) {
+            $query->orderBy('created_at', 'desc'); // Default latest
+        })
+        ->paginate(50); // Adjust pagination as needed
+
         $articlesCount=Article::all()->count();
         return view('front.pages.articles',compact('articles','articlesCount'));
         
@@ -107,7 +124,14 @@ class FrontController extends Controller
     {
         $article->load(['categories','comments'=>function($q){$q->where('reviewed',1);},'tags'])->loadCount(['comments'=>function($q){$q->where('reviewed',1);}]);
         $this->views_increase_article($article);
-        return view('front.pages.article',compact('article'));
+
+        // 
+        $articles = Article::with('categories', 'creator')->withCount('comments')->orderBy('views', 'desc')->take(3)->get(); // Count the comments
+
+
+
+        // 
+        return view('front.pages.article',compact('article','articles'));
     }
     public function page(Request $request,Page $page)
     {

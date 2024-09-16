@@ -54,6 +54,7 @@
 <link rel="stylesheet" href="{{asset('front/assets/css/plugins/ion.rangeSlider.min.css')}}" />
 <link rel="stylesheet" href="{{asset('front/assets/css/plugins/magnific-popup.css')}}" />
 
+
 <!-- Main Style CSS -->
 <link rel="stylesheet" href="{{asset('front/assets/css/style.css')}}" />   
     @yield('styles')
@@ -91,7 +92,7 @@
      <script src="{{asset('front/assets/js/plugins/imagesloaded.pkgd.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/isotope.pkgd.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/parallax.min.js')}}"></script>
-     <script src="{{asset('front//js/plugins/Jarallax.min.js')}}"></script>
+     <script src="{{asset('front/assets/js/plugins/Jarallax.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/masonry.pkgd.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/jquery.justifiedGallery.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/rellax.min.js')}}"></script>
@@ -105,6 +106,7 @@
      <script src="{{asset('front/assets/js/plugins/svg-inject.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/swiper.min.js')}}"></script>
      <script src="{{asset('front/assets/js/plugins/vivus.min.js')}}"></script>
+
  
      <!-- Use the minified version files listed below for better performance and remove the files listed above -->
      <!-- <script src="assets/js/vendor/vendor.min.js')}}"></script>

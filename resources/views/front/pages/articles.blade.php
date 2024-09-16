@@ -31,14 +31,16 @@
               </p>
             </div>
             <div class="col-sm-auto col-12 max-mb-10">
-              <select class="sort-by">
-                <option selected="selected">الأحدث أولاً</option>
-                <option value="popularity">الأكثر شعبية</option>
-                <option value="rate">الأعلى تقييمًا</option>
-                <option value="comment">الأكثر تعليقًا</option>
-                <option value="oldest">الأقدم أولاً</option>
+              <form method="get" action="{{route('articles')}}"
+              <select class="sort-by" name="sort" id="sort-by">
+                  <option value="latest" selected="selected">الأحدث أولاً</option>
+                  <option value="popularity">الأكثر شعبية</option>
+                  {{-- <option value="rate">الأعلى تقييمًا</option> --}}
+                  <option value="comment">الأكثر تعليقًا</option>
+                  <option value="oldest">الأقدم أولاً</option>
               </select>
-            </div>
+              </form>
+          </div>
           </div>
           <!-- Course Top Bar End -->
 
@@ -85,6 +87,40 @@
       </div>
       <!-- Course Section End -->
 
+
+
+
+@endsection
+ppppp
+@section('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const sortBy = document.querySelector('#sort-by');
+      
+      sortBy.addEventListener('change', function () {
+          const sortValue = this.value;
+          alert(sortValue);
+          fetchArticles(sortValue);
+      });
+
+      function fetchArticles(sortValue) {
+            $.ajax({
+                url: "{{ route('articles') }}", // Ensure this route points to your index method
+                type: 'GET',
+                data: {
+                    sort: sortValue
+                },
+                success: function (data) {
+                    // Replace the content with the updated articles list
+                    $('.articles').html($(data).find('.articles').html());
+                },
+                error: function (xhr) {
+                    console.error('Error:', xhr);
+                }
+            });
+        }
+  });
+</script>
 
 
 

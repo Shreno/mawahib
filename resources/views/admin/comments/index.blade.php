@@ -44,7 +44,7 @@
 					<tr >
 						<td class="ui-state-default drag-handler" data-comment="{{$comment->id}}">{{$comment->id}}</td>
 						<td>
-							<img class="rounded-circle mx-2" alt="" src="{{$comment->user==null?env('DEFAULT_IMAGE_AVATAR'):$comment->user->getUserAvatar()}}"  style="width:20px;height: 20px;" />
+							<img class="rounded-circle mx-2" alt="" src="{{asset('storage/'.($comment->user==null?env('DEFAULT_IMAGE_AVATAR'):$comment->user->getUserAvatar()))}}"  style="width:20px;height: 20px;" />
 							<a href="{{$comment->user==null?'#':route('admin.users.show',$comment->user)}}" class="link-dark">{{$comment->user==null?mb_strimwidth(($comment->adder_name), 0, 20, "...")  : mb_strimwidth(($comment->user->name), 0, 20, "...")}}</a></td>
 						<td>
 							 
