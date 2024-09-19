@@ -155,57 +155,64 @@
     });
 
     /*--------------------------------
-        Swiper Slider alpum  
+        Show Profile Box   
     ----------------------------------*/
-    $(document).ready(function () {
-        const $sliderWrapper = $('.slider-wrapper');
-        const totalImages = $('.slider-wrapper img').length;
-        const imagesPerSlide = 6; // عدد الصور في الشريحة (قم بتعديل العدد بناءً على الحجم والتفضيلات)
-        let currentIndex = 0;
-        let delay = 3000; // تأخير بين الحركات (بالمللي ثانية)
-        let pauseDuration = 5000; // مدة التوقف بعد عرض كل مجموعة من الصور (بالمللي ثانية)
-        const imageWidth = 200; // عرض الصورة الجديد
-        const imageMargin = 5;  // الهوامش بين الصور
-        
-        function moveSlider() {
-            // نقل الصورة الحالية إلى اليسار
-            currentIndex++;
+
+    $(document).ready(function() {
+        $('#toggle-menu').click(function(event) {
+            event.preventDefault();
     
-            // إذا وصلنا إلى نهاية الصور
-            if (currentIndex > totalImages - imagesPerSlide) {
-                // تأكد من أن الانزلاق يكون سلس
-                $sliderWrapper.css('transition', 'none');
-                $sliderWrapper.css('transform', `translateX(0px)`);
-                currentIndex = 0;
+            var $dropdownMenu = $('#dropdown-menu');
+            var $arrowIcon = $(this).find('i');
     
-                // بعد الانتقال السلس، أعد الانتقال السلس
-                setTimeout(function() {
-                    $sliderWrapper.css('transition', `transform ${delay / 1000}s linear`);
-                    moveSlider();
-                }, 50); // تأخير بسيط لضمان إعادة تعيين الترانزيت
+            $dropdownMenu.toggle();  
+    
+            if ($dropdownMenu.is(':visible')) {
+                $arrowIcon.addClass('rotate');
             } else {
-                // حساب قيمة التحويل
-                const translateXValue = -currentIndex * (imageWidth + imageMargin);
-                $sliderWrapper.css('transform', `translateX(${translateXValue}px)`);
-                
-                // تحقق إذا كنا في نهاية مجموعة الصور (كل 6 صور)
-                if ((currentIndex + 1) % imagesPerSlide === 0) {
-                    setTimeout(function() {
-                        moveSlider(); // استئناف الحركة بعد التوقف
-                    }, pauseDuration);
-                } else {
-                    setTimeout(moveSlider, delay); // تحريك كل صورة بعد تأخير
-                }
+                $arrowIcon.removeClass('rotate');
             }
-        }
-    
-        // تعيين التأخير للانتقال السلس في البداية
-        $sliderWrapper.css('transition', `transform ${delay / 1000}s linear`);
-        setTimeout(moveSlider, delay);
+        });
     });
     
+    /*--------------------------------
+        Swiper Slider alpum  
+    ----------------------------------*/
     
-    
+    var swiper =  new Swiper(".carousel-5", {
+        autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+        },
+        slidesPerView: 2,   
+        loop: true,
+        spaceBetween: 30,
+        speed: 10000,
+        observer: true,
+        observeParents: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            450: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+            },
+            868: {
+                slidesPerView: 5,
+                spaceBetween: 30,
+            },
+            992: {
+                slidesPerView: 6,
+                spaceBetween: 30,
+            },
+        },
+    });
     
     
     
@@ -734,15 +741,6 @@
         Rellax Active
     -----------------------------------*/
     var rellax = new Rellax('.rellax');
-
-    /*------------------------
-        Sticky Sidebar Active
-    -------------------------*/
-    $('#sticky-sidebar').theiaStickySidebar({
-        // Settings
-        additionalMarginTop: 120
-    });
-
 
     /*----------------------------------- 
         Count Down Active 

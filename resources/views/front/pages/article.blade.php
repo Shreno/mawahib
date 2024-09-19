@@ -52,16 +52,16 @@
 
                         <div class="tab-content">
                             <div id="overview" class="tab-pane fade show active">
-                                <div class="sidebar-entry-course-info">
+                                @if($article->app_name!=null)
 
+                                <div class="sidebar-entry-course-info">
                                     <div class="course-meta">
                                         <div class="course-instructor">
                                             <span class="meta-label">
                                                 <i class="fas fa-chalkboard-teacher"></i>
                                                 الاسم
                                             </span>
-                                            <span class="meta-value title">تحميل لعبة جاتا النسخه المصرية علي الهاتف
-                                                مجانا!</span>
+                                            <span class="meta-value title">{{$article->app_name}}</span>
                                         </div>
                                         <div class="course-price">
                                             <span class="meta-label">
@@ -69,7 +69,7 @@
                                                 السعر
                                             </span>
                                             <span class="meta-value">
-                                                <span class="price">مجانى</span>
+                                                <span class="price">{{$article->price}}</span>
                                             </span>
                                         </div>
                                         <div class="course-duration">
@@ -77,19 +77,19 @@
                                                 <i class="fas fa-download"></i>
                                                 التحميلات
                                             </span>
-                                            <span class="meta-value">أكثر من +100٬000٬000 تحميل</span>
+                                            <span class="meta-value">أكثر من +{{$article->download_count}} تحميل</span>
                                         </div>
                                         <div class="course-lectures">
                                             <span class="meta-label">
                                                 <i class="fas fa-star"></i>
                                                 التقييمات
                                             </span>
-                                            <span class="meta-value">4.0
+                                            <span class="meta-value">{{$article->rating}}
+                                                @for ($i = 0; $i <= $article->rating; $i++)
                                                 <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
+
+                                                @endfor
+                                               
                                             </span>
                                         </div>
 
@@ -106,6 +106,8 @@
                                   
 
                                 </div>
+                                @endif
+
                                 <div class="course-overview">
 
                                     <article class="post">

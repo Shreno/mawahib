@@ -23,7 +23,8 @@
               /></a>
             </div>
             <div class="info">
-              <img class="small-thum" src="{{asset('storage'.$article->creator->getUserAvatar())}}" alt="thum-img">
+              <img class="small-thum"  src="{{$article->creator->getUserAvatar() ? asset('storage/' . $article->creator->getUserAvatar()) : asset('storage/'.$settings['get_website_logo']) }}" alt="{{$article->creator->name}}">
+
               <h4 class="title">
                 <a href="{{route('article.show',$article)}}"
                   >{{$article->title}}</a

@@ -105,11 +105,11 @@
 
     &:hover {
         &::before {
-            transform: translateY(-50%) translateX(6px);
+            transform: translateY(-50%) translateX(12px);
         }
 
         &::after {
-            transform: translateY(-50%) translateX(-5px);
+            transform: translateY(-50%) translateX(0px);
         }
     }
 }

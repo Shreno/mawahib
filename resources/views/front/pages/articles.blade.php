@@ -27,7 +27,7 @@
           <div class="row justify-content-between align-items-center max-mb-20">
             <div class="col-sm-auto col-12 max-mb-10">
               <p class="result-count">
-                المقالات المتاحة <span>{{$articlesCount}}</span> 
+                المقالات المتاحة <span>{{$articles->total()}}</span> 
               </p>
             </div>
             <div class="col-sm-auto col-12 max-mb-10">
@@ -58,7 +58,8 @@
               /></a>
             </div>
             <div class="info">
-              <img class="small-thum" src="{{asset('storage'.$article->creator->getUserAvatar())}}" alt="thum-img">
+              <img class="small-thum"  src="{{$article->creator->getUserAvatar() ? asset('storage/' . $article->creator->getUserAvatar()) : asset('storage/'.$settings['get_website_logo']) }}" alt="{{$article->creator->name}}">
+
               <h4 class="title">
                 <a href="{{route('article.show',$article)}}"
                   >{{$article->title}}</a

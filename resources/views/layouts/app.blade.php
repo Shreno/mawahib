@@ -57,6 +57,8 @@
 
 <!-- Main Style CSS -->
 <link rel="stylesheet" href="{{asset('front/assets/css/style.css')}}" />   
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4171446342963559"
+     crossorigin="anonymous"></script>
     @yield('styles')
 </head>
 <body >
@@ -64,11 +66,23 @@
     @yield('after-body')
     <div id="app">
 
+
+
         {{-- <div class="page-loader"></div> --}}
         {{-- <div id="body-overlay"onclick="document.getElementById('aside-menu').classList.toggle('active');document.getElementById('body-overlay').classList.toggle('active');"></div> --}}
         <x-navbar />
         <main class="p-0 font-2">
             @yield('content')
+                    <!-- مثال على شفرة AdSense -->
+{{-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4171446342963559"
+     data-ad-slot="9978657914"
+     data-ad-format="auto"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script> --}}
         </main>
         <x-footer />
     </div>

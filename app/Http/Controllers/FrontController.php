@@ -104,7 +104,8 @@ class FrontController extends Controller
             $q->whereHas('categories',function($q)use($request,$category){
                 $q->where('category_id',$category->id);
             });
-        })->with(['categories','tags'])->withCount(['comments'=>function($q){$q->where('reviewed',1);}])->orderBy('id','DESC')->paginate();
+        })->with(['categories','tags'])->withCount(['comments'=>function($q){$q->where('reviewed',1);}])->orderBy('id','DESC')->paginate(24);
+
         return view('front.pages.blog',compact('articles','category'));
     }
     public function tag(Request $request,Tag $tag){
@@ -123,6 +124,7 @@ class FrontController extends Controller
     public function article(Request $request,Article $article)
     {
         $article->load(['categories','comments'=>function($q){$q->where('reviewed',1);},'tags'])->loadCount(['comments'=>function($q){$q->where('reviewed',1);}]);
+        
         $this->views_increase_article($article);
 
         // 

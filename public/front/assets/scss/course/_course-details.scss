@@ -74,7 +74,10 @@
         margin-bottom: 25px;
         font-size: 18px;
         color: $heading-color;
-        font-weight: 500;        
+        font-weight: 500;
+        @media #{$large-mobile}{
+            font-size: 16px;
+        }
         &:last-child{
             margin-bottom: 0;
         }

@@ -34,9 +34,30 @@ use App\Http\Controllers\Backend\BackendCreatorController;
 # Frontend Controllers
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\JoinController;
+use App\Http\Controllers\CreatorController;
 
 use App\Http\Controllers\Creator\FrontendProfileController;
 use App\Http\Controllers\Creator\FrontendArticalController;
+use App\Http\Controllers\AdSenseController;
+use App\Http\Controllers\GoogleAdSenseController;
+
+use App\Http\Controllers\GoogleController;
+
+use App\Models\User;
+
+
+
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.auth');
+Route::get('/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+
+
+Route::get('/earnings', [AdSenseController::class, 'fetchEarnings']);
+Route::get('google/redirect', [GoogleAdSenseController::class, 'redirectToGoogle'])->name('google.redirect');
+// Route::get('callback', [GoogleAdSenseController::class, 'handleGoogleCallback']);
+Route::get('adsense/report', [GoogleAdSenseController::class, 'getEarnings'])->name('adsense.report');
+
+
 
 Auth::routes();
 
@@ -52,7 +73,9 @@ Route::get('/join', [JoinController::class, 'showForm'])->name('join.form');
 
 Route::post('/join', [JoinController::class, 'submitForm'])->name('join.submit');
 
-Route::get('/creators', [JoinController::class, 'creator'])->name('creators');
+Route::get('/creators', [CreatorController::class, 'index'])->name('creators');
+Route::get('/creators/{id}', [CreatorController::class, 'show'])->name('creators.show');
+
 Route::get('/articles', [FrontController::class, 'articles'])->name('articles');
 
 

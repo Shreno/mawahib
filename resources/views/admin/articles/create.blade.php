@@ -109,6 +109,54 @@
                             </select>
                         </div>
                     </div>
+                    <hr>
+                    <h4>المعلومات</h4>
+                    <div class="card-header text-center">
+                        <h6>أدخل رابط التطبيق</h6>
+                        <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ old('app_link', $article->app_link) }}" required>
+                    </div>
+                
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>اسم التطبيق</label>
+                            <input type="text" name="app_name" class="form-control" value="{{ old('app_name', $article->app_name) }}" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>وصف التطبيق</label>
+                            <textarea name="app_description" class="form-control" rows="3">{{ old('app_description', $article->app_description) }}</textarea>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>عدد مرات التحميل</label>
+                            <input type="number" name="download_count" class="form-control" value="{{ old('download_count', $article->download_count) }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>سعر التطبيق</label>
+                            <input type="number" name="price" class="form-control" value="{{ old('app_price', $article->price) }}" step="0.01">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>تقييم التطبيق</label>
+                            <input type="number" name="rating" class="form-control" min="0" max="5" step="0.1" value="{{ old('app_rating', $article->rating) }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>المطور</label>
+                            <input type="text" name="developer" class="form-control" value="{{ old('developer', $article->developer) }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>التصنيف</label>
+                            <input type="text" name="category" class="form-control" value="{{ old('category', $article->category) }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>آخر إصدار</label>
+                            <input type="text" name="version" class="form-control" value="{{ old('last_version', $article->version) }}">
+                        </div>
+  
                 </div>
             </div>
             <div class="col-12 p-3">

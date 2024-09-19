@@ -1,75 +1,127 @@
-@extends('layouts.app',['page_title'=>"المدونة"])
+@extends('layouts.app',['page_title'=>'المقالات'])
 @section('content')
-<div class="col-12 p-0  bg-light pt-6">
-
-	<section class="section-frame overflow-hidden">
-	      <div class="wrapper bg-soft-primary">
-	        <div class="container py-12 py-md-10 text-center">
-	          <div class="row">
-	            <div class="col-md-7 col-lg-6 col-xl-5 mx-auto">
-	              <h1 class="display-1 mb-3 text-center">المدونة</h1>
-	              <p class="lead px-lg-5 px-xxl-8 mb-1 text-center">إليك أحدث مقالاتنا.</p>
-	            </div>
-	            <!-- /column -->
-	          </div>
-	          <!-- /.row -->
-	        </div>
-	        <!-- /.container -->
-	      </div>
-	      <!-- /.wrapper -->
-	    </section>
 
 
-	<div class=" p-0 container py-10 " style="min-height:70vh">
-		<div class="col-12 p-2 p-lg-3 row">
+    <!-- Page Title Section Start -->
+    <div class="page-title-section section">
+        <div class="page-title">
+          <div class="container">
+            <h1 class="title">{{$category->title}}</h1>
+          </div>
+        </div>
+        <div class="page-breadcrumb">
+          <div class="container">
+            <ul class="breadcrumb">
+              <li><a href="{{url('/')}}">الرئيسية</a></li>
+              <li class="current">{{$category->title}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Page Title Section End -->
 
-			<div class="col-12 p-2 row">
-				@foreach($articles as $article)
+      <!-- Course Section Start -->
+      <div class="articles section section-padding-bottom">
+        <div class="container">
+          <!-- Course Top Bar Start -->
+          <div class="row justify-content-between align-items-center max-mb-20">
+            <div class="col-sm-auto col-12 max-mb-10">
+              <p class="result-count">
+                المقالات المتاحة <span>{{$articles->total()}}</span> 
+              </p>
+            </div>
+            <div class="col-sm-auto col-12 max-mb-10">
+              <form method="get" action="{{route('articles')}}"
+              <select class="sort-by" name="sort" id="sort-by">
+                  <option value="latest" selected="selected">الأحدث أولاً</option>
+                  <option value="popularity">الأكثر شعبية</option>
+                  {{-- <option value="rate">الأعلى تقييمًا</option> --}}
+                  <option value="comment">الأكثر تعليقًا</option>
+                  <option value="oldest">الأقدم أولاً</option>
+              </select>
+              </form>
+          </div>
+          </div>
+          <!-- Course Top Bar End -->
+
+          <!-- Courses Wrapper Start -->
+          <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 max-mb-n30">
+
+             @foreach($articles as $article)
+        <div class="col max-mb-30" data-aos="fade-up">
+          <div class="course-2">
+            <div class="thumbnail">
+              <a href="{{route('article.show',$article)}}" class="image"
+                ><img
+                  src="{{asset('storage'.$article->main_image())}}"
+                  alt="Course Image"
+              /></a>
+            </div>
+            <div class="info">
+              <img class="small-thum"  src="{{$article->creator->getUserAvatar() ? asset('storage/' . $article->creator->getUserAvatar()) : asset('storage/'.$settings['get_website_logo']) }}" alt="{{$article->creator->name}}">
+
+              <h4 class="title">
+                <a href="{{route('article.show',$article)}}"
+                  >{{$article->title}}</a
+                >
+              </h4>
+              <span class="category">
+                @foreach($article->categories as $article_category)
+                @if($loop->index<3)
+                  <a href="{{route('category.show',$article_category)}}" class="hover" rel="category">{{$article_category->title}}</a>
+                @endif
+              @endforeach
+              </span>
+              <span class="date"> <i class="far fa-clock"></i>  {{\Carbon::parse($article->created_at)->diffForHumans()}} </i></span>
+            </div>
+          </div>
+        </div>
+        @endforeach
+
+          
+        </div>
+          <!-- Courses Wrapper End -->
+
+          {{ $articles->links('vendor.pagination.custom') }}
+
+        </div>
+      </div>
+      <!-- Course Section End -->
 
 
-				<div class="col-12 col-lg-4 mb-4">
-		            <article>
-		              <div class="card shadow-lg">
-		                <figure class="card-img-top overlay overlay-1"><a href="{{route('article.show',$article)}}"> <img src="{{$article->main_image()}}" alt="" style="height:280px;object-fit: cover;vertical-align: middle;" /></a>
-		                  <figcaption>
-		                    <h5 class="from-top mb-0 text-center">عرض المزيد</h5>
-		                  </figcaption>
-		                </figure>
-		                <div class="card-body p-6">
-		                  <div class="post-header">
-		                    <div class="post-category">
-		                    	@foreach($article->categories as $article_category)
-			                    	@if($loop->index<3)
-			                    		<a href="{{route('category.show',$article_category)}}" class="hover" rel="category">{{$article_category->title}}</a>
-			                    	@endif
-		                    	@endforeach
-		                      
-		                    </div>
-		                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="{{route('article.show',$article)}}">{{$article->title}}</a></h2>
-		                  </div>
-		                  <div class="post-footer">
-		                    <ul class="post-meta d-flex mb-0">
-		                      <li class="post-date"> 
-		                      	<span> 
-		                      		<i class="fal fa-clock"></i>  {{\Carbon::parse($article->created_at)->diffForHumans()}}
-		                      	</span> 
-		                      </li>
-		                      @if($article->comments_count==null || $article->comments_count ==0)
-		                      <li class="post-comments"><a href="#">  {{$article->comments_count}} <i class="fal fa-comment"></i> </a></li>
-		                      @endif
-		                    </ul>
-		                  </div>
-		                </div>
-		              </div>
-		            </article>
-		          </div> 
-				@endforeach
 
-				<div class="col-12 p-2">
-					{{$articles->links()}}
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
+@endsection
+@section('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const sortBy = document.querySelector('#sort-by');
+      
+      sortBy.addEventListener('change', function () {
+          const sortValue = this.value;
+          alert(sortValue);
+          fetchArticles(sortValue);
+      });
+
+      function fetchArticles(sortValue) {
+            $.ajax({
+                url: "{{ route('articles') }}", // Ensure this route points to your index method
+                type: 'GET',
+                data: {
+                    sort: sortValue
+                },
+                success: function (data) {
+                    // Replace the content with the updated articles list
+                    $('.articles').html($(data).find('.articles').html());
+                },
+                error: function (xhr) {
+                    console.error('Error:', xhr);
+                }
+            });
+        }
+  });
+</script>
+
+
+
 @endsection

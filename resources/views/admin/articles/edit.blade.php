@@ -104,6 +104,56 @@
                                 <option @if($article->is_featured=="1") selected @endif value="1">نعم</option>
                             </select>
                         </div>
+                        <hr>
+                        <h4>المعلومات</h4>
+                        <div class="card-header text-center">
+                            <h6>أدخل رابط التطبيق</h6>
+                            <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ $article->app_link }}" required>
+                        </div>
+                    
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>اسم التطبيق</label>
+                                <input type="text" name="app_name" class="form-control" value="{{ $article->app_name }}" required>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>وصف التطبيق</label>
+                                <textarea name="app_description" class="form-control" rows="3">{{ $article->app_description }}</textarea>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>عدد مرات التحميل</label>
+                                <input type="number" name="download_count" class="form-control" value="{{ $article->download_count }}">
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>سعر التطبيق</label>
+                                <input type="number" name="price" class="form-control" value="{{ $article->price }}" step="0.01">
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>تقييم التطبيق</label>
+                                <input type="number" name="rating" class="form-control" min="0" max="5" step="0.1" value="{{ $article->rating }}">
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>المطور</label>
+                                <input type="text" name="developer" class="form-control" value="{{ $article->developer }}">
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>التصنيف</label>
+                                <input type="text" name="category" class="form-control" value="{{ $article->category }}">
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>آخر إصدار</label>
+                                <input type="text" name="version" class="form-control" value="{{ $article->version }}">
+                            </div>
+                    
+                    
+        
                     </div>
                 </div>
             </div>
