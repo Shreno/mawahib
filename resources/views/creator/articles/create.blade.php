@@ -2,7 +2,7 @@
 @section('content')
 <div class="col-12 p-3">
     <div class="col-12 col-lg-12 p-0 ">
-        <form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.articles.store')}}">
+        <form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('user.articles.store')}}">
             @csrf
             <input type="hidden" name="temp_file_selector" id="temp_file_selector" value="{{uniqid()}}">
             <div class="col-12 col-lg-8 p-0 main-box">
@@ -38,18 +38,7 @@
                         </div>
                     </div>
                     {{--  --}}
-                    <div class="col-12 col-lg-6 p-2">
-                        <div class="col-12">
-                            صاحب المحتوى 
-                        </div>
-                        <div class="col-12 pt-3">
-                            <select class="form-control select2-select" name="creator_id"  multiple size="1" style="height:30px;opacity: 0;">
-                                @foreach($creators as $creator)
-                                <option value="{{$creator->id}}">{{$creator->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                  
 
 
 
@@ -109,6 +98,54 @@
                             </select>
                         </div>
                     </div>
+                    <hr>
+                    <h4>المعلومات</h4>
+                    <div class="card-header text-center">
+                        <h6>أدخل رابط التطبيق</h6>
+                        <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ old('app_link') }}" required>
+                    </div>
+                
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>اسم التطبيق</label>
+                            <input type="text" name="app_name" class="form-control" value="{{ old('app_name') }}" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>وصف التطبيق</label>
+                            <textarea name="app_description" class="form-control" rows="3">{{ old('app_description') }}</textarea>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>عدد مرات التحميل</label>
+                            <input type="number" name="download_count" class="form-control" value="{{ old('download_count') }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>سعر التطبيق</label>
+                            <input type="number" name="price" class="form-control" value="{{ old('price') }}" step="0.01">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>تقييم التطبيق</label>
+                            <input type="number" name="rating" class="form-control" min="0" max="5" step="0.1" value="{{ old('rating') }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>المطور</label>
+                            <input type="text" name="developer" class="form-control" value="{{ old('developer') }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>التصنيف</label>
+                            <input type="text" name="category" class="form-control" value="{{ old('category') }}">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>آخر إصدار</label>
+                            <input type="text" name="version" class="form-control" value="{{ old('version') }}">
+                        </div>
+  
                 </div>
             </div>
             <div class="col-12 p-3">

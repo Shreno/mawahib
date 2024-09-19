@@ -38,9 +38,8 @@ class FrontendArticalController extends Controller
     {
         $tags = Tag::get();
         $categories = Category::orderBy('id', 'DESC')->get();
-        $creators = User::where('user_type', 'creator')->orderBy('id','DESC')->get();
     
-        return view('admin.articles.create', compact('categories', 'tags', 'creators'));
+        return view('creator.articles.create', compact('categories', 'tags'));
     }
 
     /**
@@ -52,36 +51,53 @@ class FrontendArticalController extends Controller
     public function store(Request $request)
     {
         $request->merge([
-            'slug'=>\MainHelper::slug($request->slug)
+            'slug' => \MainHelper::slug($request->slug)
         ]);
         $request->validate([
-            'slug'=>"required|max:190|unique:articles,slug",
-            'category_id'=>"required|array",
-            'category_id.*'=>"required|exists:categories,id",
-            'creator_id'=>"required|exists:users,id",
-            'is_featured'=>"required|in:0,1",
-            'title'=>"required|max:190",
-            'description'=>"nullable|max:100000",
-            'meta_description'=>"nullable|max:10000",
+            'slug' => "required|max:190|unique:articles,slug",
+            'category_id' => "required|array",
+            'category_id.*' => "required|exists:categories,id",
+            'is_featured' => "required|in:0,1",
+            'title' => "required|max:190",
+            'description' => "nullable|max:100000",
+            'meta_description' => "nullable|max:10000",
+            'app_name' => 'nullable|string|max:255',
+            'app_description' => 'nullable|string',
+            'app_link' => 'nullable|url',
+            'download_count' => 'nullable|integer',
+            'price' => 'nullable|numeric',
+            'rating' => 'nullable|numeric|min:0|max:5',
+            'developer' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'version' => 'nullable|string|max:255',
         ]);
         $article = Article::create([
-            'user_id'=>auth()->user()->id,
-            'creator_id'=>$request->creator_id,
-            "slug"=>$request->slug,
-            "is_featured"=>$request->is_featured==1?1:0,
-            "title"=>$request->title,
-            "description"=>$request->description,
-            "meta_description"=>$request->meta_description,
+            'user_id' => auth()->user()->id,
+            'creator_id' =>  auth()->user()->id,
+            "slug" => $request->slug,
+            "is_featured" => $request->is_featured == 1 ? 1 : 0,
+            "title" => $request->title,
+            "description" => $request->description,
+            "meta_description" => $request->meta_description,
+            'app_name' => $request->app_name,
+            'app_description' => $request->app_description,
+            'app_link' => $request->app_link,
+            'download_count' => $request->download_count,
+            'price' => $request->price,
+            'rating' => $request->rating,
+            'developer' => $request->developer,
+            'category' => $request->category,
+            'version' => $request->version,
         ]);
         $article->categories()->sync($request->category_id);
         $article->tags()->sync($request->tag_id);
-        \MainHelper::move_media_to_model_by_id($request->temp_file_selector,$article,"description");
-        if($request->hasFile('main_image')){
+        \MainHelper::move_media_to_model_by_id($request->temp_file_selector, $article, "description");
+        if ($request->hasFile('main_image')) {
             $main_image = $article->addMedia($request->main_image)->toMediaCollection('image');
-            $article->update(['main_image'=>$main_image->id.'/'.$main_image->file_name]);
+            $article->update(['main_image' => $main_image->id . '/' . $main_image->file_name]);
         }
         toastr()->success(__('utils/toastr.article_store_success_message'), __('utils/toastr.successful_process_message'));
-        return redirect()->route('admin.articles.index');
+        return redirect()->route('user.articles.index');
     }
 
     /**
