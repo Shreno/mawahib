@@ -26,7 +26,7 @@ class FrontendArticalController extends Controller
             if($request->q!=null)
                 $q->where('title','LIKE','%'.$request->q.'%')->orWhere('description','LIKE','%'.$request->q.'%');
         })->orderBy('id','DESC')->paginate();
-        return view('admin.articles.index',compact('articles'));
+        return view('creator.articles.index',compact('articles'));
     }
 
     /**

@@ -221,7 +221,7 @@
                             </div>
                         </a>
 
-                        <a href="{{route('admin.roles.index')}}" class="col-12 px-0" >
+                        <a href="" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
                                     <span class="fal fa-comments px-2"> </span> 
