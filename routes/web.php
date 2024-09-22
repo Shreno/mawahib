@@ -38,6 +38,7 @@ use App\Http\Controllers\CreatorController;
 
 use App\Http\Controllers\Creator\FrontendProfileController;
 use App\Http\Controllers\Creator\FrontendArticalController;
+use App\Http\Controllers\Creator\FrontendWithdrawalRequestController;
 use App\Http\Controllers\AdSenseController;
 use App\Http\Controllers\GoogleAdSenseController;
 
@@ -85,6 +86,8 @@ Route::get('/articles', [FrontController::class, 'articles'])->name('articles');
 Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified','IsCreator'])->name('user.')->group(function () {
     Route::get('/', [FrontendProfileController::class,'dashboard'])->name('dashboard');
     Route::resource('articles',FrontendArticalController::class);
+    Route::resource('withdrawal_equests',FrontendWithdrawalRequestController::class);
+
 
 
     Route::get('/support', [FrontendProfileController::class,'support'])->name('support');

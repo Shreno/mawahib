@@ -16,8 +16,8 @@ class AdSenseController extends Controller
     public function fetchEarnings()
     {
         // استدعاء الأرباح بين تاريخين
-        $startDate = '2024-08-01';
-        $endDate = '2024-08-31';
+        $startDate = '2024-09-01';
+        $endDate = '2024-09-21';
         $earnings = $this->adsenseService->getEarnings($startDate, $endDate);
 
         // قم بتخزين البيانات في قاعدة البيانات

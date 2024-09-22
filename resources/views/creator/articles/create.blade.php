@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.creator')
 @section('content')
 <div class="col-12 p-3">
     <div class="col-12 col-lg-12 p-0 ">

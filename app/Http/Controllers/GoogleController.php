@@ -31,9 +31,10 @@ class GoogleController extends Controller
     {
         $this->client->authenticate($request->code);
         $token = $this->client->getAccessToken();
+        
 
 
-        User::where('id',1)->update(['Access_token'=>$token['access_token']]);
+        User::where('id',1)->update(['Access_token'=>$token]);
 
         // حفظ Access Token في الجلسة أو قاعدة البيانات
         session(['google_access_token' => $token]);

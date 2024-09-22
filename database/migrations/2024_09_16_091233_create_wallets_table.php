@@ -17,6 +17,9 @@ return new class extends Migration
             $table->decimal('balance', 10, 2)->default(0);  // الرصيد المتاح
             $table->decimal('pending_balance', 10, 2)->default(0);  // الرصيد المعلق
             $table->decimal('withdrawn_balance', 10, 2)->default(0);  // الرصيد المسحوب
+            $table->decimal('last_earning', 10, 2)->default(0);  // الرصيد المسحوب
+
+            
             $table->timestamps();
         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
