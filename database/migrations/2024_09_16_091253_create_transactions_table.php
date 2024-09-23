@@ -15,11 +15,18 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->enum('type', ['deposit', 'withdrawal', 'pending']);  // نوع المعاملة
+            $table->unsignedBigInteger('withdrawal_request_id')->nullable();
+            $table->unsignedBigInteger('article_id')->nullable();
+
             $table->decimal('amount', 10, 2);  // المبلغ
-            $table->string('status')->default('pending');  // حالة المعاملة
+            $table->text('description')->nullable(); // وصف الحركة
             $table->timestamps();
         
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');        });
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');  
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');  
+            $table->foreign('withdrawal_request_id')->references('id')->on('withdrawal_requests')->onDelete('cascade');  
+
+          });
     }
 
     /**

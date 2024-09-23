@@ -340,6 +340,42 @@
                         </div>
                     </a>
                     @endcan
+
+                     @can('withdrawal_requests-read')
+                    <a href="{{route('admin.withdrawal_requests.index')}}" class="col-12 px-0" >
+                        <div class="col-12 item-container px-0 d-flex " >
+                            <div style="width: 50px" class="px-3 text-center">
+                                <span class="fal fa-phone font-2"> </span> 
+                            </div>
+                            <div style="width: calc(100% - 50px)" class="px-2 item-container-title">
+                                 طلبات السحب 
+                            @php
+                            $WithdrawalRequest = \App\Models\WithdrawalRequest::where('status','pending')->count();
+                            @endphp
+                            @if($WithdrawalRequest)
+                            <span style="background: #d34339;border-radius: 2px;color:var(--background-1);display: inline-block;font-size: 11px;text-align: center;padding: 1px 5px;margin: 0px 8px">{{$WithdrawalRequest}}</span>
+                            
+                            @endif
+                            </div> 
+                        </div>
+                    </a>
+                    @endcan
+
+                       @can('earnings-read')
+                    <a href="{{route('admin.earnings.index')}}" class="col-12 px-0" >
+                        <div class="col-12 item-container px-0 d-flex " >
+                            <div style="width: 50px" class="px-3 text-center">
+                                <span class="fal fa-money font-2"></span>
+                            </div>
+                            <div style="width: calc(100% - 50px)" class="px-2 item-container-title">
+                                  الأرباح 
+                          
+                            </div> 
+                        </div>
+                    </a>
+                    @endcan
+
+                    
                    
                     
                     

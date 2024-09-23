@@ -28,9 +28,9 @@
                         </div>
                         <div class="col-12 pt-3">
         <select name="payment_method" class="form-control select2-select" required>
-            <option value="Zain Cash">Zain Cash</option>
+            <option value="Zain Cash">زين كاش</option>
             <option value="USDT Binance">USDT Binance</option>
-            <option value="Payoneer">Payoneer</option>
+            <option value="Payoneer">بيونير</option>
         </select>
         </div>
     </div>

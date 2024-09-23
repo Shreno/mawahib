@@ -29,6 +29,9 @@ use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendTagController;
 use App\Http\Controllers\Backend\BackendJoinRequestController;
 use App\Http\Controllers\Backend\BackendCreatorController;
+use App\Http\Controllers\Backend\BackendEarningsController;
+use App\Http\Controllers\Backend\BackendWithdrawalRequestController;
+
 
 
 # Frontend Controllers
@@ -123,6 +126,9 @@ Route::prefix('admin')->middleware(['auth','ActiveAccount','IsAdmin'])->name('ad
         Route::resource('menus',BackendMenuController::class);
         Route::get('users/{user}/access',[BackendUserController::class,'access'])->name('users.access');
         Route::resource('users',BackendUserController::class);
+        Route::resource('withdrawal_requests',BackendWithdrawalRequestController::class);
+        Route::resource('earnings',BackendEarningsController::class);
+
 
 
         Route::resource('creators',BackendCreatorController::class);

@@ -35,9 +35,7 @@ class FrontendWithdrawalRequestController extends Controller
                 'status' => 'pending',
             ]);
     
-            // خصم المبلغ من المحفظة
-            $wallet->balance -= $request->amount;
-            $wallet->save();
+           
     
             toastr()->success(__('تم إرسال طلب السحب'));
             return redirect()->back();

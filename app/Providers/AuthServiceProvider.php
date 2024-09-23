@@ -15,7 +15,6 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         /*\App\Models\User::class => \App\Policies\UserPolicy::class,
         \App\Models\Category::class => \App\Policies\CategoryPolicy::class,
-        \App\Models\Article::class => \App\Policies\ArticlePolicy::class,
         \App\Models\Redirection::class => \App\Policies\RedirectionPolicy::class,
         \App\Models\Contact::class => \App\Policies\ContactPolicy::class,
         \App\Models\Page::class => \App\Policies\PagePolicy::class,
@@ -27,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\RateLimit::class => \App\Policies\RateLimitPolicy::class,
         \App\Models\ErrorReport::class => \App\Policies\ErrorReportPolicy::class,
         \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class*/
+        \App\Models\Article::class => \App\Policies\ArticlePolicy::class,
+
     ];
 
 

@@ -132,5 +132,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(\App\Models\ItemSeen::class,'type_id','id')->where('type',"USER");
     }
 
+    public function wallet(){
+        return $this->hasOne(\App\Models\Wallet::class);
+
+    }
+
 
 }
