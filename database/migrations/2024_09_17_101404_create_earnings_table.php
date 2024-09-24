@@ -18,6 +18,9 @@ return new class extends Migration
             $table->decimal('creator_share', 8, 2);
             $table->decimal('site_share', 8, 2);
             $table->timestamps();
+            $table->decimal('last_earning', 8, 2);
+
+            
         
             // Foreign key linking to articles table
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');

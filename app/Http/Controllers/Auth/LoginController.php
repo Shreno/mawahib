@@ -70,11 +70,15 @@ class LoginController extends Controller
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
-            if (auth()->user()->user_type == 'admin') {
+            if (auth()->user()->hasRole('editor')) {
+                return redirect('/editor'); // إعادة التوجيه إلى صفحة المبدع
+            }
+            elseif (auth()->user()->user_type == 'admin') {
                 return redirect('/admin'); // إعادة التوجيه إلى صفحة المسؤول
             } elseif (auth()->user()->user_type == 'creator') {
                 return redirect('/dashboard'); // إعادة التوجيه إلى صفحة المبدع
-            } else {
+            }  
+            else {
                 return $this->sendLoginResponse($request); // إعادة التوجيه الافتراضي (منزل)
             }
 

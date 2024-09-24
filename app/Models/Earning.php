@@ -9,7 +9,7 @@ class Earning extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['article_id', 'total_revenue', 'creator_share', 'site_share'];
+    protected $fillable = ['article_id', 'total_revenue', 'creator_share', 'site_share','last_earning'];
 
     // علاقة الأرباح بالمقال
     public function article()

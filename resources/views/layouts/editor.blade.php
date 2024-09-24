@@ -197,7 +197,7 @@
 
                 <div class="col-12 px-3 aside-menu" style="height: calc(100vh - 260px);overflow: auto;">
 
-                    <a href="{{route('user.dashboard')}}" class="col-12 px-0" >
+                    <a href="{{route('editor.dashboard')}}" class="col-12 px-0" >
                         <div class="col-12 item-container px-0 d-flex" >
                             <div style="width: 50px" class="px-3 text-center">
                                 <span class="fal fa-home font-2"> </span> 
@@ -210,7 +210,7 @@
 
                    
                 
-                        <a href="{{route('user.articles.index')}}" class="col-12 px-0" >
+                        <a href="{{route('editor.articles.index')}}" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
                                     <span class="fal fa-book px-2"> </span> 
@@ -221,7 +221,7 @@
                             </div>
                         </a>
 
-                        <a href="" class="col-12 px-0" >
+                        <!-- <a href="" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
                                     <span class="fal fa-comments px-2"> </span> 
@@ -237,9 +237,9 @@
                                     @endif
                                 </div> 
                             </div>
-                        </a>
+                        </a> -->
 
-                        <a href="{{route('user.withdrawal_requests.index')}}" class="col-12 px-0" >
+                        <a href="{{route('editor.withdrawal_requests.index')}}" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
                                     <span class="fal fa-comments px-2"> </span> 
@@ -250,7 +250,7 @@
                                 </div> 
                             </div>
                         </a>
-                        <a href="{{route('user.earnings.index')}}" class="col-12 px-0" >
+                        <a href="{{route('editor.earnings.index')}}" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
                                     <span class="fal fa-money px-2"> </span> 
@@ -263,7 +263,7 @@
                             </div>
                         </a>
 
-                        <a href="{{route('user.transactions.index')}}" class="col-12 px-0" >
+                        <a href="{{route('editor.transactions.index')}}" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
                                     <span class="fal fa-money px-2"> </span> 

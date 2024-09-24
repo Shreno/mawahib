@@ -137,5 +137,10 @@ class User extends Authenticatable implements HasMedia
 
     }
 
+    public function earnings()
+    {
+        return $this->hasManyThrough(Earning::class, Article::class, 'creator_id', 'article_id');
+    }
+
 
 }

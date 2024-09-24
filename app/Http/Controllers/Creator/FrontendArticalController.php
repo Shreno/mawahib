@@ -20,7 +20,7 @@ class FrontendArticalController extends Controller
 
     public function index(Request $request)
     {
-        $articles =  Article::where(function($q)use($request){
+        $articles =  Article::where('creator_id',Auth()->user()->id)->where(function($q)use($request){
             if($request->id!=null)
                 $q->where('id',$request->id);
             if($request->q!=null)

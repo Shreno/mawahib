@@ -187,6 +187,9 @@ return [
             'settings' => 'u',
             'traffics' => 'c,r,u,d',
             'profile' => 'r,u',
+            'wallets' => 'r',
+
+            
         ],
         'admin' => [
             'users' => 'c,r,u,d',

@@ -1,33 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\Creator;
+namespace App\Http\Controllers\Editor;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\ContactReply;
 use App\Models\Earning;
+use App\Models\Transaction;
+
 
 use App\Http\Controllers\Controller;
 
 
-class FrontendProfileController extends Controller
+class EditorProfileController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $totalEarnings = Auth()->user()->earnings()->sum('creator_share'); // إجمالي أرباح الـ creator        
-        return view('creator.index',compact('totalEarnings'));
+        $totalEarnings=Transaction::where('user_id',Auth()->user()->id)->where('type','deposit')->sum('amount');
+        return view('editor.index',compact('totalEarnings'));
     }
     public function balances(Request $request)
     {
-        return view('front.user.balances');
+        return view('editor.user.balances');
     }
     public function support(Request $request)
     {
-        return view('front.user.support');
+        return view('editor.user.support');
     }
     public function create_ticket(Request $request)
     {
-        return view('front.user.create-ticket');
+        return view('editor.user.create-ticket');
     }
     public function store_ticket(Request $request)
     {

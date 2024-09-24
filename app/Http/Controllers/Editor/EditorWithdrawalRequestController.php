@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Creator;
+namespace App\Http\Controllers\Editor;
 
 use App\Http\Controllers\Controller;
 use App\Models\WithdrawalRequest;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Wallet;
 
 
-class FrontendWithdrawalRequestController extends Controller
+class EditorWithdrawalRequestController extends Controller
 {
 
     public function index(Request $request)
@@ -23,21 +23,21 @@ class FrontendWithdrawalRequestController extends Controller
                 ->orwhereHas('user', function($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->q . '%');});
         })->orderBy('id','DESC')->paginate(100);
-        return view('creator.withdrawal_requests.index',compact('withdrawal_requests'));
+        return view('editor.withdrawal_requests.index',compact('withdrawal_requests'));
     }
     public function create(){
-        return view('creator.withdrawal_requests.create');
+        return view('editor.withdrawal_requests.create');
 
     }
 
     public function show($id){
         $WithdrawalRequest=WithdrawalRequest::find($id);
-        return view('creator.withdrawal_requests.show',compact('WithdrawalRequest'));
+        return view('editor.withdrawal_requests.show',compact('WithdrawalRequest'));
     }
 
     public function edit($id){
         $WithdrawalRequest=WithdrawalRequest::find($id);
-        return view('creator.withdrawal_requests.edit',compact('WithdrawalRequest'));
+        return view('editor.withdrawal_requests.edit',compact('WithdrawalRequest'));
     }
 
     public function update(Request $request,$id){
@@ -115,11 +115,11 @@ class FrontendWithdrawalRequestController extends Controller
         {
             $withdrawal_equests->delete();
             toastr()->success(__('تم مسح الطلب '));
-            return redirect()->route('user.withdrawal_requests.index');
+            return redirect()->route('editor.withdrawal_requests.index');
 
         }else{
             toastr()->success(__('لا يمكن مسح الطلب'));
-            return redirect()->route('user.withdrawal_requests.index');
+            return redirect()->route('editor.withdrawal_requests.index');
         }
         
     }

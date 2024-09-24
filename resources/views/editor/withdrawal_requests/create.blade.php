@@ -1,8 +1,8 @@
-@extends('layouts.creator')
+@extends('layouts.editor')
 @section('content')
 <div class="col-12 p-3">
     <div class="col-12 col-lg-12 p-0 ">
-    <form method="POST" class="row" action="{{ route('user.withdrawal_requests.store') }}">
+    <form method="POST" class="row" action="{{ route('editor.withdrawal_requests.store') }}">
     @csrf
        <div class="col-12 col-lg-8 p-0 main-box">
                 <div class="col-12 px-0">

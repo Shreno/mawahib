@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\BackendJoinRequestController;
 use App\Http\Controllers\Backend\BackendCreatorController;
 use App\Http\Controllers\Backend\BackendEarningsController;
 use App\Http\Controllers\Backend\BackendWithdrawalRequestController;
+use App\Http\Controllers\Backend\BackendWalletController;
 
 
 
@@ -42,6 +43,16 @@ use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\Creator\FrontendProfileController;
 use App\Http\Controllers\Creator\FrontendArticalController;
 use App\Http\Controllers\Creator\FrontendWithdrawalRequestController;
+use App\Http\Controllers\Creator\FrontendEarningsController;
+use App\Http\Controllers\Creator\FrontendTransactionController;
+
+use App\Http\Controllers\Editor\EditorProfileController;
+use App\Http\Controllers\Editor\EditorArticalController;
+use App\Http\Controllers\Editor\EditorWithdrawalRequestController;
+use App\Http\Controllers\Editor\EditorEarningsController;
+use App\Http\Controllers\Editor\EditorTransactionController;
+
+
 use App\Http\Controllers\AdSenseController;
 use App\Http\Controllers\GoogleAdSenseController;
 
@@ -84,12 +95,23 @@ Route::get('/articles', [FrontController::class, 'articles'])->name('articles');
 
 
 
-
+Route::prefix('editor')->middleware(['auth','ActiveAccount','verified','IsEditor'])->name('editor.')->group(function () {
+    Route::get('/', [EditorProfileController::class,'dashboard'])->name('dashboard');
+    Route::resource('articles',EditorArticalController::class);
+    Route::resource('withdrawal_requests',EditorWithdrawalRequestController::class);
+    Route::resource('earnings',EditorEarningsController::class);
+    Route::resource('transactions',EditorTransactionController::class);
+});
 
 Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified','IsCreator'])->name('user.')->group(function () {
     Route::get('/', [FrontendProfileController::class,'dashboard'])->name('dashboard');
     Route::resource('articles',FrontendArticalController::class);
-    Route::resource('withdrawal_equests',FrontendWithdrawalRequestController::class);
+    Route::resource('withdrawal_requests',FrontendWithdrawalRequestController::class);
+    Route::resource('earnings',FrontendEarningsController::class);
+    Route::resource('transactions',FrontendTransactionController::class);
+
+    
+
 
 
 
@@ -128,10 +150,16 @@ Route::prefix('admin')->middleware(['auth','ActiveAccount','IsAdmin'])->name('ad
         Route::resource('users',BackendUserController::class);
         Route::resource('withdrawal_requests',BackendWithdrawalRequestController::class);
         Route::resource('earnings',BackendEarningsController::class);
+        Route::resource('wallets',BackendWalletController::class);
+
 
 
 
         Route::resource('creators',BackendCreatorController::class);
+        Route::get('transactions',[BackendCreatorController::class,'transactions'])->name('creators.transactions');
+
+        
+
 
 
 

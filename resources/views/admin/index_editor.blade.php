@@ -1,4 +1,4 @@
-@extends('layouts.creator')
+@extends('layouts.admin')
 @section('content')
 <div class="col-12 p-3 row">
 	<div class="user-profile text-center">
@@ -14,7 +14,7 @@
 	
 		<div class="action-buttons">
 			{{-- <button class="btn btn-primary">طلب كتابة محتوى ممول</button> --}}
-			<a href={{route('user.withdrawal_requests.create')}} class="btn btn-success">سحب الأرباح</a>
+			<a href={{route('editor.withdrawal_requests.create')}} class="btn btn-success">سحب الأرباح</a>
 		</div>
 		</div>
 	</div>
@@ -59,6 +59,5 @@
 	</div>
 </div>
 </div> 
-{{-- <livewire:dashboard-statistics /> --}}
 </div>
 @endsection
