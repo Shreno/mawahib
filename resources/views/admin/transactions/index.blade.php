@@ -1,10 +1,10 @@
-@extends('layouts.creator')
+@extends('layouts.editor')
 @section('content')
 <div class="col-12 p-3">
 	<!-- breadcrumb -->
 	<x-bread-crumb :breads="[
-			['url' => url('/admin') , 'title' => 'لوحة التحكم' , 'isactive' => false],
-			['url' => route('user.transactions.index') , 'title' => 'الأرباح' , 'isactive' => true],
+			['url' => url('/editor') , 'title' => 'لوحة التحكم' , 'isactive' => false],
+			['url' => route('editor.transactions.index') , 'title' => 'الأرباح' , 'isactive' => true],
 		]">
 		</x-bread-crumb>
 	<!-- /breadcrumb -->
@@ -24,20 +24,20 @@
 		<div class=" py-2 px-2 row">
             <!--  -->
             <div style="" class=" col-lg-4 ">
-			<a class="font-1" href="{{route('user.transactions.index')}}" style="color: #212529;">
+			<a class="font-1" href="{{route('editor.transactions.index')}}" style="color: #212529;">
 		           إجمالى أرباحك 
 				<h6 class="font-3">{{$totalEarnings}}</h6>
 			</a> 
 		</div>
 		<div style="" class=" col-lg-4  ">
-			<a class="font-1" href="{{route('user.transactions.index')}}" style="color: #212529;">
+			<a class="font-1" href="{{route('editor.transactions.index')}}" style="color: #212529;">
 		          الرصيد الكلى 
 				@php $wallet=\App\Models\Wallet::where('user_id',Auth()->user()->id)->first(); @endphp
 				<h6 class="font-3">{{$wallet->balance}}</h6>
 			</a> 
 		</div>
 		<div style="" class=" col-lg-4  ">
-			<a class="font-1" href="{{route('user.transactions.index')}}" style="color: #212529;">
+			<a class="font-1" href="{{route('editor.transactions.index')}}" style="color: #212529;">
 		          الرصيد المسحوب 
 				@php $wallet=\App\Models\Wallet::where('user_id',Auth()->user()->id)->first(); @endphp
 				<h6 class="font-3">{{$wallet->withdrawn_balance}}</h6>
@@ -72,11 +72,15 @@
 						<td>{{$transaction->id}}</td>
                         <td>
                         @if ($transaction->type == 'withdrawal')
-                       <a href="{{ route('user.withdrawal_requests.show', $transaction->withdrawal_request_id) }}">
+                       <a href="{{ route('editor.withdrawal_requests.show', $transaction->withdrawal_request_id) }}">
                          طلب السحب: {{ $transaction->withdrawal_request_id }}
     </a>
 @elseif ($transaction->type == 'earning')
-    <a href="{{ route('article.show', $transaction->artiicle) }}">
+    <a href="{{ route('article.show', $transaction->article) }}">
+        ربح من المقال: {{ $transaction->article->title }}
+    </a>
+	@elseif ($transaction->type == 'deposit')
+    <a href="{{ route('article.show', $transaction->article) }}">
         ربح من المقال: {{ $transaction->article->title }}
     </a>
 @endif

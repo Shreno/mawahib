@@ -48,7 +48,10 @@ class User extends Authenticatable implements HasMedia
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'token_expires_at' => 'datetime',
+
     ];
+   
 
     /**
      * The accessors to append to the model's array form.
