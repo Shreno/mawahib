@@ -62,9 +62,9 @@ use App\Models\User;
 
 
 
-Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.auth');
+// Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.auth');
 // Route::get('/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
-Route::get('/earnings', [AdSenseController::class, 'fetchEarnings']);
+// Route::get('/earnings', [AdSenseController::class, 'fetchEarnings']);
 
 // 
 Route::get('adsense/auth', [GoogleAdsenseController::class, 'authRedirect'])->name('adsense.auth');
@@ -73,9 +73,9 @@ Route::get('adsense/data', [GoogleAdsenseController::class, 'getAdSenseData'])->
 
 
 // 
-Route::get('google/redirect', [GoogleAdSenseController::class, 'redirectToGoogle'])->name('google.redirect');
+// Route::get('google/redirect', [GoogleAdSenseController::class, 'redirectToGoogle'])->name('google.redirect');
 // Route::get('callback', [GoogleAdSenseController::class, 'handleGoogleCallback']);
-Route::get('adsense/report', [GoogleAdSenseController::class, 'getEarnings'])->name('adsense.report');
+// Route::get('adsense/report', [GoogleAdSenseController::class, 'getEarnings'])->name('adsense.report');
 
 
 
