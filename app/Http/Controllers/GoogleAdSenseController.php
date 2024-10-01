@@ -163,8 +163,5 @@ class GoogleAdsenseController extends Controller
         }
 
         }
-
-
-        return response()->json($accounts);
     }
 }
