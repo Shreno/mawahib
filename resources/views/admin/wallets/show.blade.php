@@ -6,7 +6,7 @@
 			['url' => url('/admin') , 'title' => 'لوحة التحكم' , 'isactive' => false],
 			['url' => route('admin.wallets.index') , 'title' => 'المحافظ الإلكترونية' , 'isactive' => true],
 		]">
-		</x-bread-crumb>
+	</x-bread-crumb>
 	<!-- /breadcrumb -->
 	<div class="col-12 col-lg-12 p-0 main-box">
 		<div class="col-12 px-0">
@@ -43,7 +43,6 @@
 					<input type="text" name="q" class="form-control" placeholder="بحث ... " value="{{request()->get('q')}}">
 				</form>
 			</div>
-		</div>
 		<div class="col-12 p-3" style="overflow:auto">
 			<div class="col-12 p-0" style="min-width:1100px;min-height: 600px;">
 				
@@ -53,6 +52,8 @@
 					<tr>
 						<th>#</th>
 						<th>المعاملة</th>
+						<th>اليوم على حساب جوجل adsense</th>
+
 						<th>المبلغ</th>
 						<th>التاريخ</th>
 					</tr>
@@ -76,6 +77,7 @@
     </a>
 @endif
                         </td>
+						<td>{{$transaction->date}}</td>
 
 						<td>{{$transaction->amount}}</td>
                         <td>{{$transaction->created_at}}</td>

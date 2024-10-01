@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.creator')
 @section('content')
 <div class="col-12 p-3">
 	<!-- breadcrumb -->
 	<x-bread-crumb :breads="[
-			['url' => url('/admin') , 'title' => 'لوحة التحكم' , 'isactive' => false],
+			['url' => url('/dashboard') , 'title' => 'لوحة التحكم' , 'isactive' => false],
 			['url' => route('admin.earnings.index') , 'title' => 'الأرباح' , 'isactive' => true],
 		]">
 		</x-bread-crumb>
@@ -37,11 +37,11 @@
 					<tr>
 						<th>#</th>
 						<th>المقال</th>
+						<th>الربح اليومى من جوجل adsense</th>
+
 						<th>نسبة الموقع</th>
 						<th>نسبة صاحب المحتوى</th>
-						<th>الربح الكلى</th>
-						<th>التفاصيل</th>
-
+						<th>الكلى</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,19 +49,12 @@
 					<tr>
 						<td>{{$earning->id}}</td>
 						<td><a href="{{route('article.show',['article'=>$earning->article])}}">{{$earning->article->title}}</a></td>
+						<td>{{$earning->date}}</td>
+
 						<td>{{$earning->site_share}}</td>
                         <td>{{$earning->creator_share}}</td>
 						<td>{{$earning->total_revenue}}</td>
-						<td>
-							@can('earnings-read')
-
-							<a href="{{route('admin.earnings.show',$earning->article)}}">
-								<span class="btn  btn-outline-success btn-sm font-1 mx-1">
-									<span class="fas fa-eye "></span> التفاصيل
-								</span>
-							</a>
-							@endcan
-							</td>
+							
 					</tr>
 					@endforeach
 				</tbody>

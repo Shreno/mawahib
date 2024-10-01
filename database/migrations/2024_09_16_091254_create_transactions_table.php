@@ -20,6 +20,8 @@ return new class extends Migration
 
             $table->decimal('amount', 10, 2);  // المبلغ
             $table->text('description')->nullable(); // وصف الحركة
+            $table->date('date')->nullable(); // وصف الحركة
+
             $table->timestamps();
         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');  

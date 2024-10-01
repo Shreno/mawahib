@@ -62,6 +62,8 @@
 					<tr>
 						<th>#</th>
 						<th>المعاملة</th>
+						<th>اليوم على حساب جوجل adsense</th>
+
 						<th>المبلغ</th>
 						<th>التاريخ</th>
 					</tr>
@@ -85,6 +87,7 @@
     </a>
 @endif
                         </td>
+						<td>{{$transaction->date}}</td>
 
 						<td>{{$transaction->amount}}</td>
                         <td>{{$transaction->created_at}}</td>

@@ -67,6 +67,16 @@
 		 				<textarea name="settings[address]" class="form-control">{{$settings['address']}}</textarea>
 		 			</div> 
 		 		</div>
+				<div class="col-12 px-0 d-flex mb-3 row pb-3">
+		 			<div class="col-12 col-lg-3 px-2 text-lg-end pt-1 pb-3 pb-lg-0">
+		 				نسبة الموقع
+		 			</div>
+		 			<div class="col-12 col-lg-9 px-2">
+		 				<input name="settings[percentage_website]" min="0" max="100" step="0.01" type="number" value="{{ intval(trim($settings['percentage_website'], '"')) }}" class="form-control">
+		 			<span>%</span>
+
+					</div> 
+		 		</div>
 		 		<div class="col-12 px-0 d-flex mb-3 row pb-3">
 		 			<div class="col-12 col-lg-3 px-2 text-lg-end pt-1 pb-3 pb-lg-0">
 		 				عن الموقع

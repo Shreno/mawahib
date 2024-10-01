@@ -39,7 +39,9 @@
 						<th>المقال</th>
 						<th>نسبة الموقع</th>
 						<th>نسبة صاحب المحتوى</th>
-						<th>الكلى</th>
+						<th>الأرباح الكلية</th>
+					    <th> التفاصيل</th>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -50,6 +52,14 @@
 						<td>{{$earning->site_share}}</td>
                         <td>{{$earning->creator_share}}</td>
 						<td>{{$earning->total_revenue}}</td>
+						<td>
+
+							<a href="{{route('user.earnings.show',$earning->article)}}">
+								<span class="btn  btn-outline-success btn-sm font-1 mx-1">
+									<span class="fas fa-eye "></span> التفاصيل
+								</span>
+							</a>
+							</td>
 					</tr>
 					@endforeach
 				</tbody>

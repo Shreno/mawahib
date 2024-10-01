@@ -82,7 +82,7 @@ class FrontendArticalController extends Controller
             'app_name' => $request->app_name,
             'app_description' => $request->app_description,
             'app_link' => $request->app_link,
-            'download_count' => $request->download_count,
+            'download_count' => $request->download_count!=NULL? $request->download_count :0,
             'price' => $request->price,
             'rating' => $request->rating,
             'developer' => $request->developer,

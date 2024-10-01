@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\CreateDatabase::class
+        
     ];
 
     /**
@@ -31,6 +32,9 @@ class Kernel extends ConsoleKernel
         $schedule->call("$schedule_controller@update_under_attack")->name("update_under_attack")->withoutOverlapping()->everyFiveMinutes();
 
         $schedule->call("$schedule_controller@clean_system")->daily();
+        $schedule->command('adsense:fetch')->everyMinute();
+
+        
             
         
         // $schedule->command('inspire')->hourly();

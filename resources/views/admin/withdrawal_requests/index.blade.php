@@ -59,18 +59,28 @@
 
 					 
 						<td style="width: 270px;">
-							@can('tags-update')
+						 @if($withdrawal_request->status!=="approved")
+							@can('withdrawal_requests-update')
 							<a class="btn  btn-outline-success btn-sm font-1 mx-1" href="{{route('admin.withdrawal_requests.show',$withdrawal_request->id)}}">
 							<span class="fas fa-edit "></span> التحكم</a>
 
 							@endcan
-							@can('tags-delete')
+							@can('withdrawal_requests-delete')
 							<form method="POST" action="{{route('admin.withdrawal_requests.destroy',$withdrawal_request)}}" class="d-inline-block">@csrf @method("DELETE")
 								<button class="btn  btn-outline-danger btn-sm font-1 mx-1" onclick="var result = confirm('هل أنت متأكد من عملية الحذف ؟');if(result){}else{event.preventDefault()}">
 									<span class="fas fa-trash "></span> حذف
 								</button>
 							</form>
 							@endcan
+							@else
+							@can('withdrawal_requests-read')
+							<a class="btn  btn-outline-success btn-sm font-1 mx-1" href="{{route('admin.withdrawal_requests.show',$withdrawal_request->id)}}">
+							<span class="fas fa-eye "></span> التفاصيل</a>
+
+							@endcan
+
+							@endif
+
 						</td>
 					</tr>
 					@endforeach

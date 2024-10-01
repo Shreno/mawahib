@@ -24,6 +24,9 @@ class SettingsSeeder extends Seeder
         \App\Models\Setting::create(['key'=>'website_icon_base64','value'=>""]);
         \App\Models\Setting::create(['key'=>'website_cover','value'=>""]);
         \App\Models\Setting::create(['key'=>'address','value'=>""]);
+        \App\Models\Setting::create(['key'=>'percentage_website','value'=>"30"]);
+
+        
 
         # Appearance
         \App\Models\Setting::create(['key'=>'main_color','value'=>"#0194fe"]);

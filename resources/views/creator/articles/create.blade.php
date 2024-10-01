@@ -102,13 +102,13 @@
                     <h4>المعلومات</h4>
                     <div class="card-header text-center">
                         <h6>أدخل رابط التطبيق</h6>
-                        <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ old('app_link') }}" required>
+                        <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ old('app_link') }}" >
                     </div>
                 
                     <div class="card-body">
                         <div class="form-group">
                             <label>اسم التطبيق</label>
-                            <input type="text" name="app_name" class="form-control" value="{{ old('app_name') }}" required>
+                            <input type="text" name="app_name" class="form-control" value="{{ old('app_name') }}" >
                         </div>
                 
                         <div class="form-group">

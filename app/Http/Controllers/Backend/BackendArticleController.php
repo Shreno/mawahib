@@ -100,21 +100,14 @@ class BackendArticleController extends Controller
             'app_name' => $request->app_name,
             'app_description' => $request->app_description,
             'app_link' => $request->app_link,
-            'download_count' => $request->download_count,
+            'download_count' => $request->download_count!=NULL? $request->download_count :0,
             'price' => $request->price,
             'rating' => $request->rating,
             'developer' => $request->developer,
             'category' => $request->category,
             'version' => $request->version,
         ]);
-        if(auth()->user()->hasrole('editor'))
-        {
-            // 1. إضافة رصيد إلى المحفظة
-            $this->addToWallet(auth()->user(), $article);
-
-           // 2. تسجيل المعاملة
-           $this->createTransaction(auth()->user(), $article);
-        }
+       
 
         $article->categories()->sync($request->category_id);
         $article->tags()->sync($request->tag_id);
@@ -201,7 +194,7 @@ class BackendArticleController extends Controller
             'app_name' => $request->app_name,
             'app_description' => $request->app_description,
             'app_link' => $request->app_link,
-            'download_count' => $request->download_count,
+            'download_count' => $request->download_count!=NULL? $request->download_count :0,
             'price' => $request->price,
             'rating' => $request->rating,
             'developer' => $request->developer,

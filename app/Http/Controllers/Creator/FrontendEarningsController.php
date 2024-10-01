@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Creator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Earning;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use DB;
 
 class FrontendEarningsController extends Controller
 {
@@ -16,18 +18,21 @@ class FrontendEarningsController extends Controller
 
     public function index(Request $request)
     {
-        $earnings = Earning::where(function($q) use ($request) {
+              // 
+        $earnings = Earning::select(
+            'article_id',
+            DB::raw('SUM(total_revenue) as total_revenue'),
+            DB::raw('SUM(creator_share) as creator_share'),
+            DB::raw('SUM(site_share) as site_share'),
+        )
+       ->where(function($q) use ($request) {
             // Filter earnings based on the article's creator ID
             $q->whereHas('article', function($query) {
                 $query->where('creator_id', Auth()->user()->id);
             });
-        
-            // Filter by earning ID if provided
             if ($request->id != null) {
                 $q->where('id', $request->id);
             }
-        
-            // Search for articles by title, slug, description, or meta description
             if ($request->q != null) {
                 $q->whereHas('article', function($query) use ($request) {
                     $query->where('title', 'like', '%' . $request->q . '%')
@@ -36,8 +41,23 @@ class FrontendEarningsController extends Controller
                           ->orWhere('meta_description', 'like', '%' . $request->q . '%');
                 });
             }
-        })->orderBy('id', 'DESC')->paginate(100);
+        })
+        ->groupBy('article_id')
+        ->orderBy('last_earning', 'DESC')
+        ->paginate(100);
+
+
+
+        // 
         return view('creator.earnings.index',compact('earnings'));
+    }
+    public function show($slug){
+
+        $article=Article::where('slug',$slug)->first();
+        $earnings = Earning::where('article_id',$article->id)->paginate(100);
+        return view('creator.earnings.show', compact('earnings'));
+
+
     }
 
     /**

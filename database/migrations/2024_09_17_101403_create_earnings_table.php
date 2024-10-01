@@ -17,8 +17,10 @@ return new class extends Migration
             $table->decimal('total_revenue', 8, 2);
             $table->decimal('creator_share', 8, 2);
             $table->decimal('site_share', 8, 2);
-            $table->timestamps();
             $table->decimal('last_earning', 8, 2);
+            $table->date('date');
+
+            $table->timestamps();
 
             
         

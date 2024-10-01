@@ -10,6 +10,7 @@ use App\Models\Earning;
 use App\Models\Article;
 use App\Models\Wallet;
 use App\Models\Transaction;
+use App\Models\Setting;
 
 
 
@@ -100,82 +101,67 @@ class GoogleAdsenseController extends Controller
         $accountId = 'accounts/pub-4171446342963559';
         $reports = $adsense->accounts_reports->generate($accountId, [
             'metrics' => ['ESTIMATED_EARNINGS'],
-            'dateRange' => 'LAST_30_DAYS',
-            'dimensions' => 'PAGE_URL'
+            'dimensions' => ['PAGE_URL', 'DATE'], // تحديد الأبعاد كـ PAGE_URL و DATE لجلب الأرباح حسب الصفحة واليوم
+            'dateRange' => 'LAST_7_DAYS',       // تحديد نطاق التاريخ، هنا الأرباح خلال آخر 30 يومًا
         ]); 
         foreach ($reports['rows'] as $row) {
             $url = $row['cells'][0]['value'];
-            $cost = $row['cells'][1]['value'];
+            $day = $row['cells'][1]['value'];
+            $cost = $row['cells'][2]['value'];
             $baseUrl = "https://mwhib.com/";
             $slug = str_replace($baseUrl, '', $url);
             $slug = str_replace('/', '', $slug);
-
             $article = Article::where('slug', $slug)->first();
+            $totalEarnings = $cost;
+            $settings=Setting::where('key','percentage_website')->first();
+            $website_per=$settings->value;
+            $creator_per=100-$website_per;
+            $websiteShare = $totalEarnings * ($website_per/100); 
+            $creatorShare = $totalEarnings * ($creator_per/100) ;
+            if($article)
+            {
+            $earning = Earning::where('article_id', $article->id)->where('total_revenue',$totalEarnings)->where('date',$day)->first();
 
-            if ($article) {
-                $totalEarnings = $cost;
-                $websiteShare = $totalEarnings * 0.30; 
-                $creatorShare = $totalEarnings * 0.70; 
+            if(!$earning)
+            {
+                Transaction::create([
+                    'user_id' => $article->creator_id,
+                    'type' => 'deposit',
+                    'amount' => $creatorShare,
+                    'article_id' => $article->id,
+                    'description' => 'الربح اليومي',
+                    'date' => $day,
 
-                $earning = Earning::where('article_id', $article->id)->first();
-                $currentDate = now();
-                $lastUpdatedDate = $earning ? $earning->updated_at : null;
-                $daysDiff = $lastUpdatedDate ? $lastUpdatedDate->diffInDays($currentDate) : 31;
-
-                if ($earning) {
-                    if ($daysDiff <= 30) {
-                        $earning->site_share = $websiteShare;
-                        $earning->creator_share = $creatorShare;
-                        $earning->total_revenue = $totalEarnings;
-                        $earning->save();
-                    } else {
-                        $earning->site_share += $websiteShare;
-                        $earning->creator_share += $creatorShare;
-                        $earning->total_revenue += $totalEarnings;
-                        $earning->save();
-                    }
-                } else {
+                ]);
+                // 
+                if (!$earning) {
                     $earning = Earning::create([
                         'article_id' => $article->id,
                         'site_share' => $websiteShare,
                         'creator_share' => $creatorShare,
                         'total_revenue' => $totalEarnings,
-                    ]);
-                }
+                        'date' => $day,
+
+                    ]);}
 
                 $wallet = Wallet::where('user_id', $article->creator_id)->first();
 
                 if ($wallet) {
-                    if ($daysDiff <= 30) {
-                        $wallet->balance = $wallet->balance-$wallet->last_earning; 
-                        $wallet->balance += $creatorShare; 
-                        $wallet->last_earning = $creatorShare;
-                        $wallet->save();
-                    } else {
+                
                         $wallet->balance += $creatorShare;
                         $wallet->last_earning = $creatorShare;
                         $wallet->save();
-                    }
+                
                 } else {
                     $wallet = Wallet::create([
                         'user_id' => $article->creator_id,
                         'balance' => $creatorShare,
                         'last_earning' => $creatorShare,
                     ]);
-                }
-
-                // **إضافة الربح اليومي إلى جدول المعاملات**
-                Transaction::create([
-                    'user_id' => $article->creator_id, 
-                    'type' => 'deposit', 
-                    'amount' => $creatorShare,
-                    'article_id' => $article->id, 
-                    'description' => 'الربح اليومى ',
-                ]);
+                }               
             }
+        }
 
-            // يمكنك استخدام dd لاختبار النتائج
-            dd($url, $cost, $article, $earning, $wallet);
         }
 
 

@@ -43,7 +43,7 @@
                             صاحب المحتوى 
                         </div>
                         <div class="col-12 pt-3">
-                            <select class="form-control select2-select" name="creator_id"  multiple size="1" style="height:30px;opacity: 0;">
+                            <select class="form-control select2-select" name="creator_id"   size="1" style="height:30px;opacity: 0;">
                                 @foreach($creators as $creator)
                                 <option value="{{$creator->id}}">{{$creator->name}}</option>
                                 @endforeach
@@ -113,13 +113,13 @@
                     <h4>المعلومات</h4>
                     <div class="card-header text-center">
                         <h6>أدخل رابط التطبيق</h6>
-                        <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ old('app_link') }}" required>
+                        <input type="text" name="app_link" class="form-control" placeholder="أدخل رابط التحميل من Google Play" value="{{ old('app_link') }}" >
                     </div>
                 
                     <div class="card-body">
                         <div class="form-group">
                             <label>اسم التطبيق</label>
-                            <input type="text" name="app_name" class="form-control" value="{{ old('app_name') }}" required>
+                            <input type="text" name="app_name" class="form-control" value="{{ old('app_name') }}" >
                         </div>
                 
                         <div class="form-group">

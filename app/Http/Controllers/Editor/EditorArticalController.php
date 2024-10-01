@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Wallet;
+use App\Models\Transaction;
 
 class EditorArticalController extends Controller
 {
@@ -95,7 +97,7 @@ class EditorArticalController extends Controller
             'app_name' => $request->app_name,
             'app_description' => $request->app_description,
             'app_link' => $request->app_link,
-            'download_count' => $request->download_count,
+            'download_count' => $request->download_count!=NULL? $request->download_count :0,
             'price' => $request->price,
             'rating' => $request->rating,
             'developer' => $request->developer,
