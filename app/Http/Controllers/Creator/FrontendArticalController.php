@@ -74,6 +74,7 @@ class FrontendArticalController extends Controller
         $article = Article::create([
             'user_id' => auth()->user()->id,
             'creator_id' =>  auth()->user()->id,
+            'is_approved'=>1,
             "slug" => $request->slug,
             "is_featured" => $request->is_featured == 1 ? 1 : 0,
             "title" => $request->title,

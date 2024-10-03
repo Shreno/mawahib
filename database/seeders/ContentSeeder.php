@@ -48,6 +48,8 @@ class ContentSeeder extends Seeder
             $article = \App\Models\Article::create([
                 'user_id'=>\App\Models\User::firstOrFail()->id,
                 'creator_id'=>\App\Models\User::where('user_type','creator')->firstOrFail()->id,
+                'is_approved' => 1,
+
 
                 'slug'=>uniqid().rand(1,10000),
                 'title'=>$faker->realText(50),
@@ -57,5 +59,20 @@ class ContentSeeder extends Seeder
             $article->update(['main_image'=>$main_image->id.'/'.$main_image->file_name]);
             $article->categories()->sync(\App\Models\Category::inRandomOrder()->first()->id);
         } 
+
+        $this->command->info("creating article with title ".$faker->realText(50));
+        $article = \App\Models\Article::create([
+            'user_id'=>\App\Models\User::firstOrFail()->id,
+            'creator_id'=>\App\Models\User::where('user_type','creator')->firstOrFail()->id,
+
+            'slug'=>'clear',
+            'is_approved' => 1,
+
+            'title'=>$faker->realText(50),
+            'description'=>$faker->realText(10000)
+        ]);
+        $main_image = $article->addMediaFromUrl("https://loremflickr.com/700/500/nature")->toMediaCollection('main_image');
+        $article->update(['main_image'=>$main_image->id.'/'.$main_image->file_name]);
+        $article->categories()->sync(\App\Models\Category::inRandomOrder()->first()->id);
     }
 }

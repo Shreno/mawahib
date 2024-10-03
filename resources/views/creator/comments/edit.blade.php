@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('layouts.creator')
 @section('content')
 <div class="col-12 p-3">
     <div class="col-12 col-lg-12 p-0 ">
-        <form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.article-comments.update',$article_comment)}}">
+        <form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('user.article-comments.update',$article_comment)}}">
             @csrf
             @method("PUT")
             <div class="col-12 col-lg-8 p-0 main-box">

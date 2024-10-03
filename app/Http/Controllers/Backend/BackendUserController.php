@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -76,6 +77,10 @@ class BackendUserController extends Controller
             ]);
             $user->syncRoles(array_map('intval',$request->roles));
         }
+        Wallet::create([
+            'user_id' => $user->id, // ربط المحفظة بالمستخدم
+            'balance' => 0, // يمكنك ضبط الرصيد الابتدائي كما تريد
+        ]);
 
         if($request->hasFile('avatar')){
             $avatar = $user->addMedia($request->avatar)->toMediaCollection('avatar');

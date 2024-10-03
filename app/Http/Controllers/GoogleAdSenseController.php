@@ -163,5 +163,7 @@ class GoogleAdsenseController extends Controller
         }
 
         }
+
+        return redirect()->route('home');
     }
 }

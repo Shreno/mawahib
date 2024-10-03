@@ -7,47 +7,49 @@
 </style>
 <div class="col-12" style="min-height:100vh;background:#f4f4f4">
 	<div class="col-12 p-0" style="background:#fff">
-		        @php $wallet=\App\Models\Wallet::where('user_id',Auth()->user()->id)->first(); @endphp
-
+		
 	
 	<div class="container">
 		<div class="col-12 p-0 d-flex align-items-center justify-content-center" style="min-height:40vh;">
 			<div style="width:800px" class="mx-auto py-8 d-flex align-items-center justify-content-center">
 				<div class="text-center">
-                
 					<div class="col-12 px-0 pb-8 row d-flex justify-content-between">
-                    <div class="col-4" style="line-height:1">
-                   
-                    
-						<div class="font-3">إجمالى ارباحك</div>
-						<div class="font-10" style="font-weight:bold;color:#1abc9c">
-							{{ $totalEarnings }}
-						</div>
-						
-					</div>
-                    
-					<div class="col-4" style="line-height:1">
-                   
-                    
+					<div class="col-6" style="line-height:1">
 						<div class="font-3">أنفقت معنا</div>
 						<div class="font-10" style="font-weight:bold;color:#1abc9c">
-							{{ isset($wallet) ? $wallet->withdrawn_balance : 0 }}
+							0.00
 						</div>
 						
 					</div>
-					<div class="col-4" style="line-height:1">
+					<div class="col-6" style="line-height:1">
 						<div class="font-3">رصيدك الآن</div>
 						<div class="font-10" style="font-weight:bold;color:#1abc9c">
-                        {{ isset($wallet) ? $wallet->balance : 0 }}
-							
+							0.00
 						</div>
 					</div>
 					</div>
-				<a href="{{ route('user.withdrawal_requests.create') }}" class="btn btn-outline-success rounded-pill font-3 px-8" ><span class="fal fa-shop"></span> <i class="fal fa-sack-dollar mx-2 "></i> طلب سحب رصيد الآن</a>
+				<a href="#" class="btn btn-outline-success rounded-pill font-3 px-8" ><span class="fal fa-shop"></span> <i class="fal fa-sack-dollar mx-2 "></i> شحن رصيد الآن</a>
 				</div>
 				
 			</div>
 			
+		</div>
+		<div class="col-12 row" >
+			<a href="#" class="d-flex align-items-center justify-content-center py-2 px-2" style="width:120px;border-bottom:6px solid #1abc9c;height: 100%;color: inherit;">
+				<span class="fal fa-shopping-cart mx-2"></span> طلباتي
+			</a>
+			<a href="#" class="d-flex align-items-center justify-content-center py-2 px-2" style="width:120px;border-bottom:6px solid transparent;height: 100%;color: inherit;">
+				<span class="fal fa-sack-dollar mx-2"></span> أرصدتي
+			</a>
+			<a href="#" class="d-flex align-items-center justify-content-center py-2 px-2" style="width:120px;border-bottom:6px solid transparent;height: 100%;color: inherit;">
+				<span class="fal fa-comments mx-2"></span> الدعم
+			</a>
+			<a href="#" class="d-flex align-items-center justify-content-center py-2 px-2" style="width:120px;border-bottom:6px solid transparent;height: 100%;color: inherit;">
+				<span class="fal fa-bells mx-2"></span> التنبيهات
+			</a>
+			<a href="#" class="d-flex align-items-center justify-content-center py-2 px-2" style="width:120px;border-bottom:6px solid transparent;height: 100%;color: inherit;">
+				<span class="fal fa-wrench mx-2"></span> الاعدادات
+			</a>
 		</div>
 		
 	</div>
@@ -75,32 +77,8 @@
 				</div>
 				@else
 				
-				<div style="background:#ddeaea" class="col-12 col-lg-6 p-2 mb-0">
-				<div class="col-12 p-3  row d-flex " style="background: #ddeaea;border-radius: 8px;">
-					
-					<div class="col font-1">
-						<div class="col-12 p-0 row d-flex">
-							<div class="col-12 col-lg-12">
-								<h5 class="font-1"> إجمالى أرباحك </h5>
-								
-								
-							</div>
-							<div class="col-12 col-lg-6">
-                            					<p>	<h1>{{ $totalEarnings }}</h1>  دولار أمريكى	</p>
-
-							</div>
-
-						</div>
-						
-						
-					</div>
-					
-					
-				</div>
-				</div>
-                {{--  --}}
-
-                <div class="col-12 col-lg-6 p-2 mb-0">
+				@for($i=0;$i<12;$i++)
+				<div class="col-12 col-lg-6 p-2 mb-0">
 				<div class="col-12 p-3  row d-flex " style="background: #fff;border-radius: 8px;">
 					<div style="width:70px;" class="p-0">
 						<img src="https://bit.ly/3X2ccBf" style="width:100%" class="rounded">
@@ -151,6 +129,7 @@
 					
 				</div>
 				</div>
+				@endfor
 
 				
 				@endif

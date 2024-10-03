@@ -104,14 +104,7 @@ class EditorArticalController extends Controller
             'category' => $request->category,
             'version' => $request->version,
         ]);
-        if(auth()->user()->hasrole('editor'))
-        {
-            // 1. إضافة رصيد إلى المحفظة
-            $this->addToWallet(auth()->user(), $article);
-
-           // 2. تسجيل المعاملة
-           $this->createTransaction(auth()->user(), $article);
-        }
+       
 
         $article->categories()->sync($request->category_id);
         $article->tags()->sync($request->tag_id);
@@ -229,39 +222,5 @@ class EditorArticalController extends Controller
         return redirect()->route('editor.articles.index');
     }
 
-    protected function addToWallet(User $user, Article $article)
-{
-    // هنا يمكنك تحديد المبلغ الذي تريد إضافته
-    $amount = 1; // مثال، المبلغ الثابت الذي سيتم إضافته
-    $wallet = Wallet::where('user_id', $user->id)->first();
-    if ($wallet) 
-    {
-        
 
-            $wallet->balance += $amount;
-            $wallet->last_earning = $amount;
-            $wallet->save();
-        
-    } else {
-        // إذا لم تكن المحفظة موجودة، إنشاء محفظة جديدة
-        $wallet = Wallet::create([
-            'user_id' => $article->user_id,
-            'balance' => $amount,
-            'last_earning' => $amount, // تخزين آخر مكسب
-        ]);
-    }
-}
-
-protected function createTransaction(User $user, Article $article)
-{
-    // إنشاء معاملة جديدة
-    $transaction = new Transaction();
-    $transaction->user_id = $user->id;
-    $transaction->article_id = $article->id;
-    $transaction->amount = 1; // المبلغ الذي تمت إضافته
-    $transaction->type = 'deposit'; // نوع المعاملة "ربح"
-    $transaction->description= ' أضافة  بمقدار ' . 1 . ' لكتابة مقال  ' . $article->title;
-    $transaction->save();
-
-}
 }

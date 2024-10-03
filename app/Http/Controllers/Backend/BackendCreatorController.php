@@ -87,14 +87,7 @@ class BackendCreatorController extends Controller
             'balance' => 0, // يمكنك ضبط الرصيد الابتدائي كما تريد
         ]);
 
-        // 
-        // if(auth()->user()->can('user-roles-update')){
-        //     $request->validate([
-        //         'roles'=>"required|array",
-        //         'roles.*'=>"required|exists:roles,id",
-        //     ]);
-        //     $user->syncRoles(array_map('intval',$request->roles));
-        // }
+       
 
         if($request->hasFile('avatar')){
             $avatar = $user->addMedia($request->avatar)->toMediaCollection('avatar');
@@ -170,13 +163,7 @@ class BackendCreatorController extends Controller
             "youtube_link"=>$request->youtube_link,
             
         ]);
-        // if(auth()->user()->can('user-roles-update')){
-        //     $request->validate([
-        //         'roles'=>"required|array",
-        //         'roles.*'=>"required|exists:roles,id",
-        //     ]);
-        //     $user->syncRoles($request->roles);
-        // }
+       
 
         if($request->password!=null){
             $user->update([

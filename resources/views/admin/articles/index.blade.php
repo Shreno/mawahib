@@ -38,10 +38,11 @@
 						<th>#</th>
 						<th>المستخدم</th>
 						<th>صاحب المحتوى</th>
-
 						<th>الشعار</th>
 						<th>العنوان</th>
 						<th>مميز</th>
+						<th>تمت المراجعة</th>
+
 						<th>زيارات</th>
 						<th>تحكم</th>
 					</tr>
@@ -63,6 +64,11 @@
 							@if($article->is_featured==1)
 							<span class="fas fa-check-circle text-success" ></span>
 							@endif
+						</td>
+						<td>
+							<div class="form-switch">
+		                      <input name="id" class="form-check-input change_comment_status" type="checkbox" id="flexSwitchCheckDefault" {{old('reviewed',$article->is_approved??0)=="1"?"checked":""}} style="width: 50px;height:25px" value="1" data-id="{{$article->id}}">
+		                    </div>
 						</td>
 						<td>{{$article->views}}</td>
 						<td style="width: 360px;">
@@ -113,3 +119,16 @@
 	</div>
 </div>
 @endsection
+
+@push('scripts')
+<script type="module">
+	$('.change_comment_status').on('change',function(){
+		$.ajax({
+			url:"{{route('admin.article-approved.change_status')}}",
+			method:"POST",
+			data:{_token:"{{csrf_token()}}",id:$(this).attr('data-id')}
+		}).done(function(res){
+		});
+	});
+</script>
+@endpush

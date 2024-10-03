@@ -94,6 +94,7 @@ class BackendArticleController extends Controller
             'creator_id' => $request->creator_id,
             "slug" => $request->slug,
             "is_featured" => $request->is_featured == 1 ? 1 : 0,
+            'is_approved'=>1,
             "title" => $request->title,
             "description" => $request->description,
             "meta_description" => $request->meta_description,
@@ -187,6 +188,7 @@ class BackendArticleController extends Controller
             'creator_id' => $request->creator_id,
 
             "slug" => $request->slug,
+            'is_approved'=>1,
             "is_featured" => $request->is_featured == 1 ? 1 : 0,
             "title" => $request->title,
             "description" => $request->description,
@@ -260,4 +262,23 @@ protected function createTransaction(User $user, Article $article)
     $transaction->save();
 
 }
+
+// 
+public function approved_article(Request $request)
+{
+    $article=Article::find($request->id);
+    if($article->user->hasrole('editor'))
+    {
+          // 1. إضافة رصيد إلى المحفظة
+          $this->addToWallet($article->user, $article);
+
+          // 2. تسجيل المعاملة
+          $this->createTransaction($article->user, $article);
+    }
+    $article->update(['is_approved'=>!$article->is_approved]);
+    return 1;
+}
+
+
+// 
 }

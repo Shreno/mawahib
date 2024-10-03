@@ -93,9 +93,7 @@
                                             <a href="{{route('user.dashboard')}}" class="dropdown-item">
                                                 <i class="fas fa-desktop"></i> لوحة التحكم
                                             </a>
-                                            <a href="route('user.profile.edit')}}" class="dropdown-item">
-                                                <i class="fas fa-user"></i> الملف الشخصى
-                                            </a>
+                                          
                                             <a href="{{route('user.profile.edit')}}" class="dropdown-item">
                                                 <i class="fas fa-cog"></i> اعدادات الملف الشخصى
                                             </a>

@@ -24,6 +24,8 @@ class CreateArticlesTable extends Migration
 
             $table->string('main_image')->nullable();
             $table->integer('is_featured')->default(0);
+            $table->integer('is_approved')->default(0);
+
             $table->string('slug')->unique()->index();
             $table->text('title')->nullable();
             $table->longText('description')->nullable();

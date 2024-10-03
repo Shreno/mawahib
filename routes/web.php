@@ -45,6 +45,8 @@ use App\Http\Controllers\Creator\FrontendArticalController;
 use App\Http\Controllers\Creator\FrontendWithdrawalRequestController;
 use App\Http\Controllers\Creator\FrontendEarningsController;
 use App\Http\Controllers\Creator\FrontendTransactionController;
+use App\Http\Controllers\Creator\FrontendArticleCommentController;
+
 
 use App\Http\Controllers\Editor\EditorProfileController;
 use App\Http\Controllers\Editor\EditorArticalController;
@@ -108,14 +110,11 @@ Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified','IsCre
     Route::get('/', [FrontendProfileController::class,'dashboard'])->name('dashboard');
     Route::resource('articles',FrontendArticalController::class);
     Route::resource('withdrawal_requests',FrontendWithdrawalRequestController::class);
+    Route::post('article-comments/change_status',[FrontendArticleCommentController::class,'change_status'])->name('article-comments.change_status');
+    Route::resource('article-comments',FrontendArticleCommentController::class);
+
     Route::resource('earnings',FrontendEarningsController::class);
     Route::resource('transactions',FrontendTransactionController::class);
-
-    
-
-
-
-
     Route::get('/support', [FrontendProfileController::class,'support'])->name('support');
     Route::get('/support/create-ticket', [FrontendProfileController::class,'create_ticket'])->name('create-ticket');
     Route::post('/support/create-ticket', [FrontendProfileController::class,'store_ticket'])->name('store-ticket');
@@ -169,6 +168,8 @@ Route::prefix('admin')->middleware(['auth','ActiveAccount','IsAdmin'])->name('ad
         Route::put('user-roles/{user}',[BackendUserRoleController::class,'update'])->name('users.roles.update');
         Route::resource('articles',BackendArticleController::class);
         Route::post('article-comments/change_status',[BackendArticleCommentController::class,'change_status'])->name('article-comments.change_status');
+
+        Route::post('article-approved/change_status',[BackendArticleController::class,'approved_article'])->name('article-approved.change_status');
         Route::resource('article-comments',BackendArticleCommentController::class);
         Route::resource('pages',BackendPageController::class);
         Route::resource('tags',BackendTagController::class);

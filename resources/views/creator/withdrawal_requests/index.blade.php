@@ -3,14 +3,18 @@
 <div class="col-12 p-3">
 	<div class="col-12 col-lg-12 p-0 main-box">
 	 
-		<div class="col-12 px-0">
+	<div class="col-12 px-0">
 			<div class="col-12 p-0 row">
 				<div class="col-12 col-lg-4 py-3 px-3">
-					<span class="fas fa-tags"></span> عرض الكل
+					<span class="fas fa-articles"></span> طلبات السحب
 				</div>
-				<div class="col-12 col-lg-4 p-2">
+				<div class="col-12 col-lg-4 p-0">
 				</div>
-				
+				<div class="col-12 col-lg-4 p-2 text-lg-end">
+					<a href="{{route('user.withdrawal_requests.create')}}">
+						<span class="btn btn-primary"><span class="fas fa-plus"></span> إضافة جديد</span>
+					</a>
+				</div>
 			</div>
 			<div class="col-12 divider" style="min-height: 2px;"></div>
 		</div>

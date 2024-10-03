@@ -32,6 +32,8 @@ class ArticleSeeder extends Seeder
                 'creator_id' => $creator->id,
                 'main_image' => 'images/article_1.jfif', // Dummy image path
                 'is_featured' => rand(0, 1),
+                'is_approved' => rand(0, 1),
+
                 'slug' => Str::slug('Article Title ' . $i),
                 'title' => 'عنوان المقالة ' . $i,
                 'description' => 'This is the description of article ' . $i,

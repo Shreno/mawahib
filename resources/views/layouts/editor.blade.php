@@ -253,7 +253,7 @@
                         <a href="{{route('editor.earnings.index')}}" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
-                                    <span class="fal fa-money px-2"> </span> 
+                                <span class="fal fa-newspaper font-2"></span>
                                 </div>
                                 <div style="width: calc(100% - 50px)" class="px-2 item-container-title">
                                     الأرباح
@@ -266,7 +266,7 @@
                         <a href="{{route('editor.transactions.index')}}" class="col-12 px-0" >
                             <div class="col-12 item-container px-0 d-flex " >
                                 <div style="width: 50px" class="px-3 text-center">
-                                    <span class="fal fa-money px-2"> </span> 
+                                <span class="fal fa-newspaper font-2"></span>
                                 </div>
                                 <div style="width: calc(100% - 50px)" class="px-2 item-container-title">
                                     الحركة المالية
