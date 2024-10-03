@@ -32,7 +32,7 @@ class PagesSeeder extends Seeder
             'slug'=>"privacy",
             'removable'=>0
         ]);
-
+        
         /*about*/
         Page::create([
             'user_id'=>1,

@@ -19,12 +19,6 @@ class ContentSeeder extends Seeder
         $articles_count = 10;
 
         $categories_titles=[
-            'مشاريعنا',
-            'أعمالنا',
-            'الأخبار',
-            'تدوينات',
-            'آراء',
-            'تحليلات',
             'تصميم',
             'برمجة',
             'تطبيقات',
@@ -53,6 +47,8 @@ class ContentSeeder extends Seeder
             $this->command->info("creating article with title ".$faker->realText(50));
             $article = \App\Models\Article::create([
                 'user_id'=>\App\Models\User::firstOrFail()->id,
+                'creator_id'=>\App\Models\User::where('user_type','creator')->firstOrFail()->id,
+
                 'slug'=>uniqid().rand(1,10000),
                 'title'=>$faker->realText(50),
                 'description'=>$faker->realText(10000)

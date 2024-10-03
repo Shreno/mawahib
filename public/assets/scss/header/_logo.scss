@@ -1,0 +1,30 @@
+/* 05.06 Header Logo CSS */
+
+.header-logo {
+    & a {
+        position: relative;
+
+        max-width: 158px;
+
+        & img {
+            width: 100%;
+            padding: 15px 0;
+
+        }
+    }
+
+    @media #{$extra-small-mobile} {
+        & a {
+            max-width: 100px;
+        }
+    }
+}
+
+.header-logo.logged {
+    @media #{$extra-small-mobile} {
+        & a {
+            display: none;
+        }
+    }
+
+}

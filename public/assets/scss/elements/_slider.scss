@@ -1,0 +1,16 @@
+// Home Slider
+
+.flat-alpum {
+    padding: 100px 0;
+    .swiper-container {
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+
+    .swiper-slide img {
+        width: 150px; 
+        height: 150px; 
+        object-fit: cover;
+    }
+    
+}

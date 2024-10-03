@@ -20364,6 +20364,77 @@ ul.section-content .course-item .section-item-link .course-item-meta .item-meta-
   padding-top: 40px;
 }
 
+.profile-card {
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.profile-card .name {
+  text-align: center;
+  color: #333;
+  font-size: 25px;
+}
+.profile-card .profile-image {
+  display: block;
+  margin: 20px auto;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+.profile-card .platforms,
+.profile-card .contact {
+  padding-top: 10px;
+}
+.profile-card .Platforms-content a {
+  color: #3F3A64;
+  font-size: 25px;
+  margin-left: 5px;
+}
+.profile-card .Platforms-content a:hover {
+  color: #FF9A54;
+}
+
+.latest-posts h3 {
+  padding: 50px 0 40px;
+}
+.latest-posts .posts {
+  overflow: hidden;
+  height: 100%;
+  -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.latest-posts .posts .thumbnail .image {
+  min-width: 100%;
+}
+.latest-posts .posts .thumbnail img {
+  min-width: 100%;
+  max-height: 127px;
+}
+.latest-posts .posts .info {
+  padding: 15px 10px;
+}
+.latest-posts .posts .title {
+  font-size: 15px;
+}
+.latest-posts .posts .details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 10px;
+  font-size: 13px;
+}
+
 /*----------------------------------------*/
 /*  17. Widget CSS
 /*----------------------------------------*/

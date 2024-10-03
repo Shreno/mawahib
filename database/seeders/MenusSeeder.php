@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Menu;
@@ -37,30 +38,29 @@ class MenusSeeder extends Seeder
                 'menu_id'=>$menu->id,
                 'type'=>"CUSTOM_LINK",
                 'type_id'=>null,
-                'title'=>"المدونة",
-                'url'=>route('blog'),
+                'title'=>"المقالات",
+                'url'=>route('articles'),
                 'icon'=>"fal fa-pen-alt",
                 'order'=>1,
             ],
-            [
-                'menu_id'=>$menu->id,
-                'type'=>"PAGE",
-                'type_id'=>\App\Models\Page::where('slug','terms')->first()->id,
-                'title'=>"شروط الاستخدام",
-                'url'=>route('page.show',\App\Models\Page::where('slug','terms')->first()),
-                'icon'=>"fal fa-lock",
-                'order'=>2,
-            ],
-            [
-                'menu_id'=>$menu->id,
-                'type'=>"CUSTOM_LINK",
-                'type_id'=>null,
-                'title'=>"تواصل معنا",
-                'url'=>route('contact'),
-                'icon'=>"fal fa-phone",
-                'order'=>3,
-            ]
         ]);
+        $categories=Category::all();
+        foreach($categories as $i=>$category)
+        {
+            MenuLink::insert([
+                [
+                    'menu_id'=>$menu->id,
+                    'type'=>"CUSTOM_LINK",
+                    'type_id'=>null,
+                    'title'=>$category->title,
+                    'url'=>route('category.show',$category->slug),
+                    'icon'=>"fal fa-home",
+                    'order'=>$i+2
+                ]
+            ]);
+
+        }
+
 
 
 
