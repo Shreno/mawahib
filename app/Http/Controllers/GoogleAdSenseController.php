@@ -103,6 +103,7 @@ class GoogleAdsenseController extends Controller
             'metrics' => ['ESTIMATED_EARNINGS'],
             'dimensions' => ['PAGE_URL', 'DATE'], // تحديد الأبعاد كـ PAGE_URL و DATE لجلب الأرباح حسب الصفحة واليوم
             'dateRange' => 'LAST_7_DAYS',       // تحديد نطاق التاريخ، هنا الأرباح خلال آخر 30 يومًا
+            'currencyCode'=>'USD',
         ]); 
         foreach ($reports['rows'] as $row) {
             $url = $row['cells'][0]['value'];

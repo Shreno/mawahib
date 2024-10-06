@@ -108,6 +108,8 @@ class BackendScheduleController extends Controller
             'metrics' => ['ESTIMATED_EARNINGS'],
             'dimensions' => ['PAGE_URL', 'DATE'],
             'dateRange' => 'LAST_7_DAYS',
+            'currencyCode'=>'USD',
+
         ]);
 
         foreach ($reports['rows'] as $row) {
