@@ -4,7 +4,7 @@
 	<!-- breadcrumb -->
 	<x-bread-crumb :breads="[
 			['url' => url('/admin') , 'title' => 'لوحة التحكم' , 'isactive' => false],
-			['url' => route('admin.creators.index') , 'title' => 'أصحاب المحتوى' , 'isactive' => true],
+			['url' => route('admin.editors.index') , 'title' => 'الكتاب' , 'isactive' => true],
 		]">
 		</x-bread-crumb>
 	<!-- /breadcrumb -->
@@ -12,13 +12,13 @@
 		<div class="col-12 px-0">
 			<div class="col-12 p-0 row">
 				<div class="col-12 col-lg-4 py-3 px-3">
-					<span class="fas fa-users"></span>	أصحاب المحتوى
+					<span class="fas fa-users"></span>	 الكتاب
 				</div>
 				<div class="col-12 col-lg-4 p-0">
 				</div>
 				<div class="col-12 col-lg-4 p-2 text-lg-end">
-					@can('creators-create')
-					<a href="{{route('admin.creators.create')}}">
+					@can('users-create')
+					<a href="{{route('admin.editors.create')}}">
 					<span class="btn btn-primary"><span class="fas fa-plus"></span> إضافة جديد</span>
 					</a>
 					@endcan
@@ -67,7 +67,7 @@
 						<td>{{$user->email}}</td>
 
 						@if(auth()->user()->can('articles-read'))
-						<td><a href="{{route('admin.articles.index',['user_id'=>$user->id])}}">{{$user->articles_creator_count}}</a></td>
+						<td><a href="{{route('admin.articles.index',['user_id'=>$user->id])}}">{{$user->articles_count}}</a></td>
 						@endif
 						
 						@if(auth()->user()->can('comments-read'))
@@ -81,8 +81,8 @@
 						 
 
 						<td>
-							@can('creators-read')
-							<a href="{{route('admin.creators.show',$user->id)}}">
+							@can('users-read')
+							<a href="{{route('admin.editors.show',$user->id)}}">
 							<span class="btn  btn-outline-primary btn-sm font-small mx-1">
 								<span class="fas fa-search "></span> عرض
 							</span>
@@ -106,15 +106,15 @@
 							@endcan
 
 							{{-- @can('user-roles-update')
-							<a href="{{route('admin.creators.roles.index',$user)}}">
+							<a href="{{route('admin.users.roles.index',$user)}}">
 							<span class="btn btn-outline-primary btn-sm font-small mx-1">
 								<span class="fal fa-key "></span> الصلاحيات
 							</span>
 							</a>
 							@endcan --}}
 							
-							@can('creators-update')
-							<a href="{{route('admin.creators.edit',$user->id)}}">
+							@can('users-update')
+							<a href="{{route('admin.editors.edit',$user->id)}}">
 							<span class="btn  btn-outline-success btn-sm font-small mx-1">
 								<span class="fas fa-wrench "></span> تحكم
 							</span>
@@ -122,8 +122,8 @@
 							@endcan
 							
 						 						 
-							@can('creators-delete')
-							<form method="POST" action="{{route('admin.creators.destroy',$user->id)}}" class="d-inline-block">@csrf @method("DELETE")
+							@can('users-delete')
+							<form method="POST" action="{{route('admin.editors.destroy',$user->id)}}" class="d-inline-block">@csrf @method("DELETE")
 								<button class="btn  btn-outline-danger btn-sm font-small mx-1" onclick="var result = confirm('هل أنت متأكد من عملية الحذف ؟');if(result){}else{event.preventDefault()}">
 									<span class="fas fa-trash "></span> حذف
 								</button>
@@ -137,13 +137,13 @@
 								<span class="fas fa-bars"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 29px, 0px);">
-								{{-- @can('creators-update')
-								<li><a class="dropdown-item font-1" href="{{route('admin.creators.access',$user)}}"><span class="fal fa-eye"></span> دخول</a></li>
+								{{-- @can('users-update')
+								<li><a class="dropdown-item font-1" href="{{route('admin.users.access',$user)}}"><span class="fal fa-eye"></span> دخول</a></li>
 								@endcan --}}
 
  
 
-								@can('creators-update')
+								@can('users-update')
 								<li><a class="dropdown-item font-1" href="{{route('admin.traffics.logs',['user_id'=>$user->id])}}"><span class="fal fa-boxes"></span> مراقبة النشاط <span class="badge bg-danger">{{$user->logs_count}}</span></a></li>
 								@endcan
 								</ul>

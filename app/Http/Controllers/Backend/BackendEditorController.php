@@ -9,29 +9,29 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 
-class BackendCreatorController extends Controller
+class BackendEditorController extends Controller
 {
 
 
     public function __construct()
     {
-        $this->middleware('can:creators-create', ['only' => ['create','store']]);
-        $this->middleware('can:creators-read',   ['only' => ['show', 'index']]);
-        $this->middleware('can:creators-update',   ['only' => ['edit','update']]);
-        $this->middleware('can:creators-delete',   ['only' => ['delete']]);
+        $this->middleware('can:editor-create', ['only' => ['create','store']]);
+        $this->middleware('can:editor-read',   ['only' => ['show', 'index']]);
+        $this->middleware('can:editor-update',   ['only' => ['edit','update']]);
+        $this->middleware('can:editor-delete',   ['only' => ['delete']]);
     }
 
     public function index(Request $request)
     {
         
-        $users =  User::where('user_type','creator')->where(function($q)use($request){
+        $users =  User::where('user_type','editor')->where(function($q)use($request){
             if($request->id!=null)
                 $q->where('id',$request->id);
             if($request->q!=null)
                 $q->where('name','LIKE','%'.$request->q.'%')->orWhere('phone','LIKE','%'.$request->q.'%')->orWhere('email','LIKE','%'.$request->q.'%');
         })->withCount(['logs','articles_creator','contacts','comments'])->with(['roles'])->orderBy('last_activity','DESC')->orderBy('id','DESC')->paginate();
 
-        return view('admin.creators.index',compact('users'));
+        return view('admin.editors.index',compact('users'));
         
     }
 
@@ -42,7 +42,7 @@ class BackendCreatorController extends Controller
      */
     public function create()
     {
-        return view('admin.creators.create');
+        return view('admin.editors.create');
     }
 
     /**
@@ -60,11 +60,7 @@ class BackendCreatorController extends Controller
             'blocked'=>"required|in:0,1",
             'email'=>"required|unique:users,email",
             'password'=>"required|min:8|max:190",
-            'followers' => 'required|integer',
-            'platform_link' => 'required|url',
-            'youtube_link' => 'nullable|url',
-            'facebook_link' => 'nullable|url',
-            'tiktok_link' => 'nullable|url',
+           
         ]);
         $user = User::create([
             "name"=>$request->name,
@@ -73,12 +69,8 @@ class BackendCreatorController extends Controller
             "blocked"=>$request->blocked,
             "email"=>$request->email,
             "password"=>\Hash::make($request->password),
-            'user_type'=>'creator',
-            "followers"=>$request->followers,
-            "platform_link"=>$request->platform_link,
-            "facebook_link"=>$request->facebook_link,
-            "tiktok_link"=>$request->tiktok_link,
-            "youtube_link"=>$request->youtube_link,
+            'user_type'=>'editor',
+          
 
         ]);
         // 
@@ -94,8 +86,8 @@ class BackendCreatorController extends Controller
             $user->update(['avatar'=>$avatar->id.'/'.$avatar->file_name]);
         }
 
-        toastr()->success('تم إضافة صاحب محتوى بنجاح','عملية ناجحة');
-        return redirect()->route('admin.creators.index');
+        toastr()->success('تم إضافة الكاتب  بنجاح','عملية ناجحة');
+        return redirect()->route('admin.editors.index');
             
         
     }
@@ -110,7 +102,7 @@ class BackendCreatorController extends Controller
     {
         $user=User::findOrFail($id);
 
-        return view('admin.creators.show',compact('user'));
+        return view('admin.editors.show',compact('user'));
     }
 
     /**
@@ -124,7 +116,7 @@ class BackendCreatorController extends Controller
         $user=User::find($id);
 
         // $roles = Role::get();
-        return view('admin.creators.edit',compact('user'));
+        return view('admin.editors.edit',compact('user'));
     }
 
     /**
@@ -144,11 +136,7 @@ class BackendCreatorController extends Controller
             'blocked'=>"required|in:0,1",
             'email'=>"required|unique:users,email,".$user->id,
             'password'=>"nullable|min:8|max:190",
-            'followers' => 'required|integer',
-            'platform_link' => 'required|url',
-            'youtube_link' => 'nullable|url',
-            'facebook_link' => 'nullable|url',
-            'tiktok_link' => 'nullable|url',
+           
         ]);
         $user->update([
             "name"=>$request->name,
@@ -156,11 +144,7 @@ class BackendCreatorController extends Controller
             "bio"=>$request->bio,
             "blocked"=>$request->blocked,
             "email"=>$request->email,
-            "followers"=>$request->followers,
-            "platform_link"=>$request->platform_link,
-            "facebook_link"=>$request->facebook_link,
-            "tiktok_link"=>$request->tiktok_link,
-            "youtube_link"=>$request->youtube_link,
+          
             
         ]);
        
@@ -175,8 +159,8 @@ class BackendCreatorController extends Controller
             $user->update(['avatar'=>$avatar->id.'/'.$avatar->file_name]);
         }
 
-        toastr()->success('تم تحديث صاحب المحتوى بنجاح','عملية ناجحة');
-        return redirect()->route('admin.creators.index');
+        toastr()->success('تم تحديث  الكاتب بنجاح','عملية ناجحة');
+        return redirect()->route('admin.editors.index');
     }
 
     /**
@@ -187,12 +171,12 @@ class BackendCreatorController extends Controller
      */
     public function destroy($id)
     {
-        if(!auth()->user()->can('users-delete'))abort(403);
+        if(!auth()->user()->can('editor-delete'))abort(403);
         $user=User::findOrFail($id);
 
         $user->delete();
-        toastr()->success('تم حذف صاحب المحتوى بنجاح','عملية ناجحة');
-        return redirect()->route('admin.creators.index');
+        toastr()->success('تم حذف  الكاتب بنجاح','عملية ناجحة');
+        return redirect()->route('admin.editors.index');
     }
 
     public function access(Request $request,User $user){

@@ -176,6 +176,7 @@ return [
             'contacts' => 'c,r,u,d',
             'join-requests' => 'c,r,u,d',
             'creators' => 'c,r,u,d',
+            'editor'=>'c,r,u,d',
             'withdrawal_requests' => 'c,r,u,d',
             'earnings' => 'c,r,u,d',
             'faqs' => 'c,r,u,d',
@@ -188,6 +189,7 @@ return [
             'traffics' => 'c,r,u,d',
             'profile' => 'r,u',
             'wallets' => 'r',
+            
 
             
         ],

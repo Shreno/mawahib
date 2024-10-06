@@ -18,7 +18,7 @@
                             المبلغ 
                         </div>
                         <div class="col-12 pt-3">
-        <input class="form-control" type="number" name="amount" min="1" required>
+<input class="form-control" type="text" name="amount" pattern="^\d+(\.\d+)?$" step="0.01" min="0.01" required>
         </div>
     </div>
 

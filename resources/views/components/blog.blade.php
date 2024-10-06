@@ -10,7 +10,7 @@
       <!-- Topics Wrapper Start -->
       <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 max-mb-n30">
         @php
-        $articles = \App\Models\Article::orderBy('id','DESC')->take(12)->get();
+        $articles = \App\Models\Article::where('is_approved',1)->orderBy('id','DESC')->take(12)->get();
         @endphp
         @foreach($articles as $article)
         <div class="col max-mb-30" data-aos="fade-up">
@@ -23,7 +23,7 @@
               /></a>
             </div>
             <div class="info">
-              <img class="small-thum"  src="{{$article->creator->getUserAvatar() ? asset('storage/' . $article->creator->getUserAvatar()) : asset('storage/'.$settings['get_website_logo']) }}" alt="{{$article->creator->name}}">
+<img class="small-thum" src="{{ $article->creator ? asset('storage/' . $article->creator->getUserAvatar()) : asset('storage/' . $settings['get_website_logo']) }}" alt="{{ $article->creator ? $article->creator->name : 'Website Logo' }}">
 
               <h4 class="title">
                 <a href="{{route('article.show',$article)}}"

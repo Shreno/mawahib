@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('user_type', ['admin', 'creator'])->default('admin');
+            $table->enum('user_type', ['admin', 'creator','editor'])->default('admin');
             $table->integer('followers')->nullable();
             $table->string('platform_link')->nullable();
             $table->string('youtube_link')->nullable();

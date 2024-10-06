@@ -16,7 +16,7 @@ class IsEditor
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::check() && \Auth::user()->hasRole('editor')) {
+        if (\Auth::check() && \Auth::user()->user_type=="editor") {
             return $next($request);
         }
         abort(404);

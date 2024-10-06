@@ -27,7 +27,7 @@ class FrontController extends Controller
         $sort = $request->get('sort', 'latest'); // Default sort is 'latest'
 
         // Modify the query based on the sorting option
-        $articles = Article::with('categories', 'creator')->withCount('comments') // Count the comments
+        $articles = Article::where('is_approved',1)->with('categories', 'creator')->withCount('comments') // Count the comments
 
         ->when($sort == 'popularity', function($query) {
             $query->orderBy('views', 'desc');
@@ -42,7 +42,7 @@ class FrontController extends Controller
         })
         ->paginate(50); // Adjust pagination as needed
 
-        $articlesCount=Article::all()->count();
+        $articlesCount=Article::where('is_approved',1)->get()->count();
         return view('front.pages.articles',compact('articles','articlesCount'));
         
     }
@@ -97,7 +97,7 @@ class FrontController extends Controller
         return redirect()->back();
     }
     public function category(Request $request,Category $category){
-        $articles = Article::where(function($q)use($request,$category){
+        $articles = Article::where('is_approved',1)->where(function($q)use($request,$category){
             if($request->user_id!=null)
                 $q->where('user_id',$request->user_id);
             
@@ -110,7 +110,7 @@ class FrontController extends Controller
     }
     public function tag(Request $request,Tag $tag){
 
-        $articles = Article::where(function($q)use($request,$tag){
+        $articles = Article::where('is_approved',1)->where(function($q)use($request,$tag){
             if($request->user_id!=null)
                 $q->where('user_id',$request->user_id);
 
@@ -128,7 +128,7 @@ class FrontController extends Controller
         $this->views_increase_article($article);
 
         // 
-        $articles = Article::with('categories', 'creator')->withCount('comments')->orderBy('views', 'desc')->take(3)->get(); // Count the comments
+        $articles = Article::where('is_approved',1)->with('categories', 'creator')->withCount('comments')->orderBy('views', 'desc')->take(3)->get(); // Count the comments
 
 
 
@@ -149,7 +149,7 @@ class FrontController extends Controller
     }
     public function blog(Request $request)
     {
-        $articles = Article::where(function($q)use($request){
+        $articles = Article::where('is_approved',1)->where(function($q)use($request){
             if($request->category_id!=null)
                 $q->where('category_id',$request->category_id);
             if($request->user_id!=null)

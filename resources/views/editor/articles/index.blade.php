@@ -11,11 +11,9 @@
 				<div class="col-12 col-lg-4 p-0">
 				</div>
 				<div class="col-12 col-lg-4 p-2 text-lg-end">
-					@can('articles-create')
 					<a href="{{route('editor.articles.create')}}">
 						<span class="btn btn-primary"><span class="fas fa-plus"></span> إضافة جديد</span>
 					</a>
-					@endcan
 				</div>
 			</div>
 			<div class="col-12 divider" style="min-height: 2px;"></div>
@@ -42,6 +40,8 @@
 						<th>الشعار</th>
 						<th>العنوان</th>
 						<th>مميز</th>
+						<th>تمت المراجعة</th>
+
 						<th>زيارات</th>
 						<th>تحكم</th>
 					</tr>
@@ -64,6 +64,11 @@
 							<span class="fas fa-check-circle text-success" ></span>
 							@endif
 						</td>
+							<td>
+							<div class="form-switch">
+		                      <input disabled name="id" class="form-check-input " type="checkbox" id="flexSwitchCheckDefault" {{old('reviewed',$article->is_approved??0)=="1"?"checked":""}} style="width: 50px;height:25px" value="1" data-id="{{$article->id}}">
+		                    </div>
+						</td>
 						<td>{{$article->views}}</td>
 						<td style="width: 360px;">
 
@@ -76,13 +81,14 @@
 								</span>
 							</a>
 							
-							
+							@if($article->is_approved==0)
 
 							<a href="{{route('editor.articles.edit',$article)}}">
 								<span class="btn  btn-outline-success btn-sm font-1 mx-1">
 									<span class="fas fa-wrench "></span> تحكم
 								</span>
 							</a>
+							@endif
 							<!-- <form method="POST" action="{{route('editor.articles.destroy',$article)}}" class="d-inline-block">@csrf @method("DELETE")
 								<button class="btn  btn-outline-danger btn-sm font-1 mx-1" onclick="var result = confirm('هل أنت متأكد من عملية الحذف ؟');if(result){}else{event.preventDefault()}">
 									<span class="fas fa-trash "></span> حذف

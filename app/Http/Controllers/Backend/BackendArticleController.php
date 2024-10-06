@@ -25,22 +25,14 @@ class BackendArticleController extends Controller
 
     public function index(Request $request)
     {
-        if(auth()->user()->hasrole('editor'))
-        { $articles = Article::where('user_id',auth()->user()->id)->where(function ($q) use ($request) {
-            if ($request->id != null)
-                $q->where('id', $request->id);
-            if ($request->q != null)
-                $q->where('title', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%');
-        })->orderBy('id', 'DESC')->paginate();
-
-        }else{
+       
             $articles = Article::where(function ($q) use ($request) {
                 if ($request->id != null)
                     $q->where('id', $request->id);
                 if ($request->q != null)
                     $q->where('title', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%');
             })->orderBy('id', 'DESC')->paginate();
-        }
+        
        
         return view('admin.articles.index', compact('articles'));
     }
@@ -267,13 +259,20 @@ protected function createTransaction(User $user, Article $article)
 public function approved_article(Request $request)
 {
     $article=Article::find($request->id);
-    if($article->user->hasrole('editor'))
+    if($article->user->user_type=='editor')
     {
+    
+        $Transaction=Transaction::where('user_id',$article->user)->where('article_id',$article->id)->first();
+        if($Transaction==null && $article->is_approved==0 )
+        {
+
+        
           // 1. إضافة رصيد إلى المحفظة
           $this->addToWallet($article->user, $article);
 
           // 2. تسجيل المعاملة
           $this->createTransaction($article->user, $article);
+        }
     }
     $article->update(['is_approved'=>!$article->is_approved]);
     return 1;

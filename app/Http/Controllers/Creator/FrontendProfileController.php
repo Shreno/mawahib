@@ -7,6 +7,11 @@ use App\Models\Contact;
 use App\Models\ContactReply;
 use App\Models\Earning;
 use App\Models\User;
+use App\Models\Article;
+use App\Models\RateLimitDetail;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Hash;
 
 
@@ -17,8 +22,49 @@ class FrontendProfileController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $totalEarnings = Auth()->user()->earnings()->sum('creator_share'); // إجمالي أرباح الـ creator        
-        return view('creator.index',compact('totalEarnings'));
+        $totalEarnings = Auth()->user()->earnings()->sum('creator_share'); // إجمالي أرباح الـ creator     
+        $toDayEarnings = Auth()->user()->earnings()
+        ->whereDate('earnings.created_at', today())
+        ->sum('creator_share');
+        $counters=$this->current_visitors();
+        $vistor_today=0;
+        foreach($counters as $counter)
+        {
+           $url= $counter->url;
+           $baseUrl = "https://mwhib.com/";
+           $slug = str_replace($baseUrl, '', $url);
+           $article = Article::where('creator_id',Auth()->user()->id)->where('slug', $slug)->first();
+           if($article)
+           {
+            $vistor_today+=$vistor_today;
+           }
+
+        }
+
+
+        $articles = Article::where('is_approved', 1)
+        ->where('creator_id', Auth()->user()->id)
+        ->orderBy('views', 'desc')
+        ->take(10)
+        ->get(); 
+        $days = $request->input('days', 7); // إذا لم يتم تحديد شيء، يكون الافتراضي 7
+
+        
+        $revenueData = Auth()->user()->earnings()
+        ->select(DB::raw('DATE(earnings.created_at) as date'), DB::raw('SUM(earnings.creator_share) as total_earnings'))
+        ->whereDate('earnings.created_at', '>=', Carbon::now()->subDays($days)) // تغيير عدد الأيام إلى 30
+        ->groupBy(DB::raw('DATE(earnings.created_at)')) // التجميع حسب التاريخ فقط بدون الوقت
+        ->orderBy('date', 'asc')
+        ->get();
+
+       
+        
+        return view('creator.index',compact('totalEarnings','articles','toDayEarnings','vistor_today','revenueData','days'));
+    }
+    public function current_visitors(){
+        return \App\Models\RateLimitDetail::whereHas('rate_limit',function($q){
+            
+        })->where('created_at','>',\Carbon::parse(now())->subMinutes(5)->format('Y-m-d H:i:s'))->groupBy('rate_limit_id')->distinct('rate_limit_id')->get();
     }
     public function balances(Request $request)
     {

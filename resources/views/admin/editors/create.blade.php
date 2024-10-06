@@ -4,7 +4,7 @@
 		<!-- breadcrumb -->
 		<x-bread-crumb :breads="[
 			['url' => url('/admin') , 'title' => 'لوحة التحكم' , 'isactive' => false],
-			['url' => route('admin.creators.index') , 'title' => 'أصحاب المحتوى' , 'isactive' => false],
+			['url' => route('admin.editors.index') , 'title' => 'الكتاب' , 'isactive' => false],
 			['url' => '#' , 'title' =>  'اضافة مستخدم', 'isactive' => true],
 		]">
 		</x-bread-crumb>
@@ -12,7 +12,7 @@
 	<div class="col-12 col-lg-12 p-0 ">
 	 
 		
-		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.creators.store')}}">
+		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.editors.store')}}">
 		@csrf
 
 		<div class="col-12 col-lg-8 p-0 main-box">
@@ -71,69 +71,7 @@
 				</div>
 			</div>
 			{{-- creators data --}}
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					عدد المتابعين الإجمالي في كل المنصات *</div>
-					<div class="col-12 pt-3">
-
-				<input type="number" name="followers" id="followers" class="form-control" value="{{ old('followers') }}" required>
-					</div>
-			</div>
-	
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					رابط حسابك على أكبر منصة لديك متابعين بها *</div>
-				<div class="col-12 pt-3">
-
-				<input type="url" name="platform_link" id="platform_link" class="form-control" value="{{ old('platform_link') }}" required>
-				</div>
-			</div>
-	
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					رابط قناتك على يوتيوب (اختياري)</div>
-				<div class="col-12 pt-3">
-
-				<input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{ old('youtube_link') }}">
-				</div>
-			</div>
-	
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					رابط حسابك على فيسبوك (اختياري)</div>
-				<div class="col-12 pt-3">
-
-				<input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{ old('facebook_link') }}">
-				</div>
-			</div>
-	
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					رابط حسابك على تيك توك (اختياري)</div>
-				<div class="col-12 pt-3">
-
-				<input type="url" name="tiktok_link" id="tiktok_link" class="form-control" value="{{ old('tiktok_link') }}">
-				</div>
-			</div>
-
-
-
-
-			{{--  --}}
-			{{-- @if(auth()->user()->can('user-roles-update'))
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					الصلاحية
-				</div>
-				<div class="col-12 pt-3">
-					<select class="form-control select2-select" name="roles[]" multiple required>
-						@foreach($roles as $role)
-							<option value="{{$role->id}}">{{$role->display_name}}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-			@endif --}}
+			
 			<div class="col-12 col-lg-6 p-2">
 				<div class="col-12">
 					نبذة

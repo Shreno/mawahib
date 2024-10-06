@@ -32,7 +32,7 @@ use App\Http\Controllers\Backend\BackendCreatorController;
 use App\Http\Controllers\Backend\BackendEarningsController;
 use App\Http\Controllers\Backend\BackendWithdrawalRequestController;
 use App\Http\Controllers\Backend\BackendWalletController;
-
+use App\Http\Controllers\Backend\BackendEditorController;
 
 
 # Frontend Controllers
@@ -104,6 +104,12 @@ Route::prefix('editor')->middleware(['auth','ActiveAccount','verified','IsEditor
     Route::resource('withdrawal_requests',EditorWithdrawalRequestController::class);
     Route::resource('earnings',EditorEarningsController::class);
     Route::resource('transactions',EditorTransactionController::class);
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/settings',[EditorProfileController::class,'profile_edit'])->name('edit');
+        Route::put('/update',[EditorProfileController::class,'profile_update'])->name('update');
+        Route::put('/update-password',[EditorProfileController::class,'profile_update_password'])->name('update-password');
+        Route::put('/update-email',[EditorProfileController::class,'profile_update_email'])->name('update-email');
+    });
 });
 
 Route::prefix('dashboard')->middleware(['auth','ActiveAccount','verified','IsCreator'])->name('user.')->group(function () {
@@ -154,6 +160,7 @@ Route::prefix('admin')->middleware(['auth','ActiveAccount','IsAdmin'])->name('ad
 
 
 
+        Route::resource('editors',BackendEditorController::class);
 
         Route::resource('creators',BackendCreatorController::class);
         Route::get('transactions',[BackendCreatorController::class,'transactions'])->name('creators.transactions');

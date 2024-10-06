@@ -67,27 +67,27 @@
                                         </div>
                                         <div id="dropdown-menu" class="dropdown-menu">
                                             @if(Auth()->user()->user_type=='admin')
-                                            @if(Auth()->user()->hasRole('editor'))
+                                             <a href="{{route('admin.index')}}" class="dropdown-item">
+                                                <i class="fas fa-desktop"></i> لوحة التحكم
+                                            </a>
+                                           
+                                            <a onclick="document.getElementById('logout-form').submit();" class="dropdown-item">
+                                                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                                            </a>
+
+
+                                            
+                                            @elseif(Auth()->user()->user_type=='editor')
                                             <a href="{{route('editor.dashboard')}}" class="dropdown-item">
                                                 <i class="fas fa-desktop"></i> لوحة التحكم
                                             </a>
-                                           
-                                            <a onclick="document.getElementById('logout-form').submit();" class="dropdown-item">
-                                                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                                            </a>
-
-                                            @else
-                                            <a href="{{route('admin.index')}}" class="dropdown-item">
-                                                <i class="fas fa-desktop"></i> لوحة التحكم
+                                             <a href="{{route('editor.profile.edit')}}" class="dropdown-item">
+                                                <i class="fas fa-cog"></i> اعدادات الملف الشخصى
                                             </a>
                                            
                                             <a onclick="document.getElementById('logout-form').submit();" class="dropdown-item">
                                                 <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
                                             </a>
-
-
-                                            @endif
-                                           
 
                                             @else
                                             <a href="{{route('user.dashboard')}}" class="dropdown-item">

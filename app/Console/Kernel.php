@@ -32,7 +32,10 @@ class Kernel extends ConsoleKernel
         $schedule->call("$schedule_controller@update_under_attack")->name("update_under_attack")->withoutOverlapping()->everyFiveMinutes();
 
         $schedule->call("$schedule_controller@clean_system")->daily();
-        $schedule->command('adsense:fetch')->everyMinute();
+
+        $schedule->call("$schedule_controller@adsense")->daily();
+
+
 
         
             

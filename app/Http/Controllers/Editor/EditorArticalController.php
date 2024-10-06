@@ -22,22 +22,14 @@ class EditorArticalController extends Controller
 
     public function index(Request $request)
     {
-        if(auth()->user()->hasrole('editor'))
-        { $articles = Article::where('user_id',auth()->user()->id)->where(function ($q) use ($request) {
+         $articles = Article::where('user_id',auth()->user()->id)->where(function ($q) use ($request) {
             if ($request->id != null)
                 $q->where('id', $request->id);
             if ($request->q != null)
                 $q->where('title', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%');
         })->orderBy('id', 'DESC')->paginate();
 
-        }else{
-            $articles = Article::where(function ($q) use ($request) {
-                if ($request->id != null)
-                    $q->where('id', $request->id);
-                if ($request->q != null)
-                    $q->where('title', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%');
-            })->orderBy('id', 'DESC')->paginate();
-        }
+
        
         return view('editor.articles.index', compact('articles'));
     }

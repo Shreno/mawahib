@@ -42,7 +42,7 @@ class FrontendWithdrawalRequestController extends Controller
 
     public function update(Request $request,$id){
         $request->validate([
-            'amount' => 'required|numeric|min:1',
+            'amount' => 'required|numeric|min:0.1',
             'payment_method' => 'required|in:Zain Cash,USDT Binance,Payoneer',
             'payment_details' => 'nullable|string',
         ]);
@@ -75,7 +75,7 @@ class FrontendWithdrawalRequestController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'amount' => 'required|numeric|min:1',
+            'amount' => 'required|numeric|min:0.1',
             'payment_method' => 'required|in:Zain Cash,USDT Binance,Payoneer',
             'payment_details' => 'nullable|string',
         ]);

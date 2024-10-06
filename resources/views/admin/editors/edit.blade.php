@@ -4,16 +4,16 @@
 	<!-- breadcrumb -->
 		<x-bread-crumb :breads="[
 			['url' => url('/admin') , 'title' => 'لوحة التحكم' , 'isactive' => false],
-			['url' => route('admin.creators.index') , 'title' => 'أصحاب المحتوى' , 'isactive' => false],
-			['url' => route('admin.creators.show', $user->id) , 'title' =>  $user->name, 'isactive' => false],
+			['url' => route('admin.editors.index') , 'title' => 'الكتاب' , 'isactive' => false],
+			['url' => route('admin.editors.show', $user->id) , 'title' =>  $user->name, 'isactive' => false],
 			['url' => '#' , 'title' => 'تعديل' , 'isactive' => true],
 		]">
 		</x-bread-crumb>
 	<!-- /breadcrumb -->
 	<div class="col-12 col-lg-12 p-0 ">
 	 
-		
-		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.creators.update',$user->id)}}">
+
+		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.editors.update',$user->id)}}">
 		@csrf
 		@method("PUT")
 		<div class="col-12 col-lg-8 p-0 main-box">
@@ -71,70 +71,10 @@
 					<input type="text" name="phone"   maxlength="190" class="form-control"  value="{{$user->phone}}" >
 				</div>
 			</div>
-			{{--  --}}
-				{{-- creators data --}}
-				<div class="col-12 col-lg-6 p-2">
-					<div class="col-12">
-						عدد المتابعين الإجمالي في كل المنصات *</div>
-						<div class="col-12 pt-3">
-	
-					<input type="number" name="followers" id="followers" class="form-control" value="{{ $user->followers }}" required>
-						</div>
-				</div>
-		
-				<div class="col-12 col-lg-6 p-2">
-					<div class="col-12">
-						رابط حسابك على أكبر منصة لديك متابعين بها *</div>
-					<div class="col-12 pt-3">
-	
-					<input type="url" name="platform_link" id="platform_link" class="form-control" value="{{ $user->platform_link }}" required>
-					</div>
-				</div>
-		
-				<div class="col-12 col-lg-6 p-2">
-					<div class="col-12">
-						رابط قناتك على يوتيوب (اختياري)</div>
-					<div class="col-12 pt-3">
-	
-					<input type="url" name="youtube_link" id="youtube_link" class="form-control" value="{{ $user->youtube_link }}">
-					</div>
-				</div>
-		
-				<div class="col-12 col-lg-6 p-2">
-					<div class="col-12">
-						رابط حسابك على فيسبوك (اختياري)</div>
-					<div class="col-12 pt-3">
-	
-					<input type="url" name="facebook_link" id="facebook_link" class="form-control" value="{{ $user->facebook_link}}">
-					</div>
-				</div>
-		
-				<div class="col-12 col-lg-6 p-2">
-					<div class="col-12">
-						رابط حسابك على تيك توك (اختياري)</div>
-					<div class="col-12 pt-3">
-	
-					<input type="url" name="tiktok_link" id="tiktok_link" class="form-control" value="{{ $user->tiktok_link }}">
-					</div>
-				</div>
+				
 
 
-
-			{{--  --}}
-			{{-- @if(auth()->user()->can('user-roles-update'))
-			<div class="col-12 col-lg-6 p-2">
-				<div class="col-12">
-					الصلاحية
-				</div>
-				<div class="col-12 pt-3">
-					<select class="form-control select2-select" name="roles[]" multiple required>
-						@foreach($roles as $role)
-							<option value="{{$role->id}}" @if($user->hasRole($role->name)) selected @endif>{{$role->display_name}}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-			@endif --}}
+			
 			<div class="col-12 col-lg-6 p-2">
 				<div class="col-12">
 					نبذة

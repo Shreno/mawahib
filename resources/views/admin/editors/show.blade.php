@@ -37,7 +37,7 @@
                                 </div>
                                 <div style="width: calc(100% - 80px)" class="px-2 py-2">
                                     <h6 class="font-1">المقالات</h6>
-                                    <h6 class="font-3">{{$user->articles_creator->count()}}</h6>
+                                    <h6 class="font-3">{{$user->articles->count()}}</h6>
                                 </div>
                             </div>
                         </a>

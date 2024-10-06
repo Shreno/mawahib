@@ -19,7 +19,7 @@ class CreatorController extends Controller
 
     public function show($id){
         $creator=User::where('user_type','creator')->where('id',$id)->first();
-        $articles=  Article::with('categories', 'creator')->where('creator_id',$id)->withCount('comments')->orderBy('views','DESC')->paginate(24); // Count the comments
+        $articles=  Article::where('is_approved',1)->with('categories', 'creator')->where('creator_id',$id)->withCount('comments')->orderBy('views','DESC')->paginate(24); // Count the comments
 
         return view('front.pages.creator', compact('creator', 'articles'));
 
